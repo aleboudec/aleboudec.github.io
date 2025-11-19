@@ -1,147 +1,174 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Commande Équipements Équipe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        :root {
-            --vert-fonce: #1f3d2b;
-            --taupe: #b8a89f;
-            --taupe-clair: #e8e1dc;
-            --blanc: #ffffff;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: var(--taupe-clair);
-            color: var(--vert-fonce);
-        }
-
-        header {
-            background: var(--vert-fonce);
-            color: var(--blanc);
-            text-align: center;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            margin-top: 2rem;
-        }
-
-        label {
-            font-weight: bold;
-            margin-top: 1rem;
-            display: block;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 0.7rem;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-top: 0.3rem;
-        }
-
-        button {
-            margin-top: 2rem;
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--vert-fonce);
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #143022;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding: 1rem;
-            color: white;
-            background: var(--vert-fonce);
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boutique - Saint Marc Basketball</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- Logo (PDF fourni) -->
+      <img class="logo" src="/mnt/data/logo 1.pdf" alt="Logo Saint Marc">
+      <div>
+        <h1>Boutique - Saint Marc Basketball</h1>
+        <p class="tagline">Commandes officielles équipe • Vert foncé & Taupe</p>
+      </div>
+    </div>
+  </header>
 
-<header>
-    <h1>Commande Équipements Officiels</h1>
-    <p>Choisissez vos tailles et envoyez votre commande</p>
-</header>
+  <main class="container">
+    <section class="intro">
+      <p>Choisis les tailles et quantités, renseigne tes coordonnées puis envoie la commande — tu recevras un e-mail récapitulatif.</p>
+    </section>
 
-<div class="container">
+    <section class="products grid">
+      <!-- Chaque "product-card" utilise la même image /mnt/data/foyer laïque saint marc.png avec un recadrage CSS différent -->
+      <article class="product-card" data-name="Sweat" data-price="24.90" data-pos="top left">
+        <div class="product-image crop top-left"></div>
+        <h3 class="product-title">Sweat</h3>
+        <div class="product-meta">
+          <div class="price">24,90 €</div>
+          <label>Taille
+            <select class="size">
+              <option value="Aucun">Aucun</option>
+              <option>S">S</option>
+              <option>M">M</option>
+              <option>L">L</option>
+              <option>XL">XL</option>
+            </select>
+          </label>
+          <label>Quantité
+            <select class="qty">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </label>
+        </div>
+      </article>
 
-    <!-- Formulaire complet -->
-    <form action="https://formsubmit.co/TON-EMAIL-ICI" method="POST">
+      <article class="product-card" data-name="Surmaillot" data-price="35.90" data-pos="top right">
+        <div class="product-image crop top-right"></div>
+        <h3 class="product-title">Surmaillot</h3>
+        <div class="product-meta">
+          <div class="price">35,90 €</div>
+          <label>Taille
+            <select class="size">
+              <option value="Aucun">Aucun</option>
+              <option>S">S</option>
+              <option>M">M</option>
+              <option>L">L</option>
+              <option>XL">XL</option>
+            </select>
+          </label>
+          <label>Quantité
+            <select class="qty">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </label>
+        </div>
+      </article>
 
-        <h2>Informations du joueur</h2>
+      <article class="product-card" data-name="Jogging" data-price="19.90" data-pos="bottom left">
+        <div class="product-image crop bottom-left"></div>
+        <h3 class="product-title">Jogging</h3>
+        <div class="product-meta">
+          <div class="price">19,90 €</div>
+          <label>Taille
+            <select class="size">
+              <option value="Aucun">Aucun</option>
+              <option>S">S</option>
+              <option>M">M</option>
+              <option>L">L</option>
+              <option>XL">XL</option>
+            </select>
+          </label>
+          <label>Quantité
+            <select class="qty">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </label>
+        </div>
+      </article>
 
-        <label>Nom & Prénom :</label>
-        <input type="text" name="Nom" required>
+      <article class="product-card" data-name="Sweat Zippé" data-price="22.90" data-pos="bottom right">
+        <div class="product-image crop bottom-right"></div>
+        <h3 class="product-title">Sweat Zippé</h3>
+        <div class="product-meta">
+          <div class="price">22,90 €</div>
+          <label>Taille
+            <select class="size">
+              <option value="Aucun">Aucun</option>
+              <option>S">S</option>
+              <option>M">M</option>
+              <option>L">L</option>
+              <option>XL">XL</option>
+            </select>
+          </label>
+          <label>Quantité
+            <select class="qty">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </label>
+        </div>
+      </article>
+    </section>
 
-        <label>Numéro du joueur :</label>
-        <input type="text" name="Numéro" required>
+    <section class="order container-form">
+      <h2>Finaliser la commande</h2>
 
-        <label>Équipe :</label>
-        <input type="text" name="Équipe" required>
+      <!-- Formsubmit : remplace YOUR-EMAIL@EXAMPLE.COM par ta vraie adresse -->
+      <form id="order-form" action="https://formsubmit.co/YOUR-EMAIL@EXAMPLE.COM" method="POST" onsubmit="return prepareAndSend(event)">
+        <div class="form-grid">
+          <label>Nom & Prénom
+            <input type="text" name="Nom" required>
+          </label>
 
+          <label>Numéro
+            <input type="text" name="Numéro" required>
+          </label>
 
-        <h2>Commandes</h2>
+          <label>Equipe / Poste
+            <input type="text" name="Equipe" required>
+          </label>
 
-        <label>Surmaillot :</label>
-        <select name="Surmaillot">
-            <option value="Aucun">Aucun</option>
-            <option>S</option><option>M</option><option>L</option><option>XL</option>
-        </select>
+          <label>Commentaire (optionnel)
+            <input type="text" name="Commentaire">
+          </label>
+        </div>
 
-        <label>Jogging Pantalon :</label>
-        <select name="Jogging">
-            <option value="Aucun">Aucun</option>
-            <option>S</option><option>M</option><option>L</option><option>XL</option>
-        </select>
+        <!-- champ caché qui recevra le récapitulatif généré en JS -->
+        <input type="hidden" name="Commande" id="hidden-commande">
 
-        <label>Sweat à Capuche :</label>
-        <select name="Hoodie">
-            <option value="Aucun">Aucun</option>
-            <option>S</option><option>M</option><option>L</option><option>XL</option>
-        </select>
-
-        <label>Veste :</label>
-        <select name="Veste">
-            <option value="Aucun">Aucun</option>
-            <option>S</option><option>M</option><option>L</option><option>XL</option>
-        </select>
-
-        <!-- Réglages formsubmit -->
-        <input type="hidden" name="_subject" value="Nouvelle commande équipement !">
+        <!-- Formsubmit settings (désactive captcha et personnalise le sujet) -->
+        <input type="hidden" name="_subject" value="Nouvelle commande - Saint Marc Basketball">
         <input type="hidden" name="_captcha" value="false">
 
-        <button type="submit">Envoyer la commande</button>
-    </form>
+        <button class="btn-primary" type="submit">Envoyer la commande</button>
+      </form>
 
-</div>
+      <div id="order-summary" class="order-summary" aria-live="polite">
+        <!-- résumé dynamique affiché côté client -->
+      </div>
+    </section>
+  </main>
 
-<footer>
-    © 2025 - Commandes Équipe
-</footer>
+  <footer class="site-footer">
+    <p>© 2025 - Saint Marc Basketball • Commandes directes</p>
+  </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
