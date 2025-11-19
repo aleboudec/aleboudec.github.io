@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon site GitHub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Site</title>
+    <style>
+        :root {
+            --vert-fonce: #1f3d2b;
+            --taupe: #b8a89f;
+            --taupe-clair: #e8e1dc;
+            --blanc: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Arial", sans-serif;
+            background: var(--taupe-clair);
+            color: var(--vert-fonce);
+        }
+
+        header {
+            background: var(--vert-fonce);
+            color: var(--blanc);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: var(--taupe);
+            padding: 1rem;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--vert-fonce);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--vert-fonce);
+            color: var(--blanc);
+        }
+    </style>
 </head>
 <body>
-    <h1>Bonjour, bienvenue sur mon site !</h1>
-    <p>Ceci est mon premier site hébergé sur GitHub Pages.</p>
+
+    <header>
+        <h1>Bienvenue sur mon site</h1>
+        <p>Un design épuré vert foncé & taupe</p>
+    </header>
+
+    <nav>
+        <a href="#">Accueil</a>
+        <a href="#">À propos</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <div class="container">
+        <h2>Présentation</h2>
+        <p>
+            Ceci est un site simple utilisant une palette vert foncé et taupe.  
+            Tu peux personnaliser le texte, les sections ou ajouter des images comme tu veux.
+        </p>
+
+        <h2>Section Exemple</h2>
+        <p>
+            Ajoute ici tout ce que tu veux : ton projet, ton portfolio, des liens, etc.
+        </p>
+    </div>
+
+    <footer>
+        © 2025 - Mon Site Personnel
+    </footer>
+
 </body>
 </html>
