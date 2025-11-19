@@ -4,124 +4,97 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Boutique - Saint Marc Basketball</title>
+
+  <!-- FICHIERS CSS & JS ASSOCIÉS CORRECTEMENT -->
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <!-- Logo (PDF fourni) -->
-      <img class="logo" src="logo.pdf" alt="Logo Saint Marc">
+
+      <!-- Logo PDF -->
+      <iframe class="logo" src="logo.pdf"></iframe>
+
       <div>
         <h1>Boutique - Saint Marc Basketball</h1>
-        <p class="tagline">Commandes officielles équipe • Vert foncé & Taupe</p>
+        <p class="tagline">Commandes officielles équipe</p>
       </div>
     </div>
   </header>
 
   <main class="container">
     <section class="intro">
-      <p>Choisis les tailles et quantités, renseigne tes coordonnées puis envoie la commande — tu recevras un e-mail récapitulatif.</p>
+      <p>Choisissez vos tailles, saisissez vos infos et envoyez directement votre commande.</p>
     </section>
 
     <section class="products grid">
-      <!-- Chaque "product-card" utilise la même image /mnt/data/foyer laïque saint marc.png avec un recadrage CSS différent -->
-      <article class="product-card" data-name="Sweat" data-price="24.90" data-pos="top left">
-        <div class="product-image crop top-left"></div>
+
+      <!-- SWEAT -->
+      <article class="product-card" data-name="Sweat" data-price="24.90">
+        <div class="product-image top-left"></div>
         <h3 class="product-title">Sweat</h3>
         <div class="product-meta">
           <div class="price">24,90 €</div>
           <label>Taille
             <select class="size">
-              <option value="Aucun">Aucun</option>
-              <option>S">S</option>
-              <option>M">M</option>
-              <option>L">L</option>
-              <option>XL">XL</option>
+              <option>Aucun</option><option>S</option><option>M</option><option>L</option><option>XL</option>
             </select>
           </label>
           <label>Quantité
-            <select class="qty">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
+            <select class="qty"><option>0</option><option>1</option><option>2</option><option>3</option></select>
           </label>
         </div>
       </article>
 
-      <article class="product-card" data-name="Surmaillot" data-price="35.90" data-pos="top right">
-        <div class="product-image crop top-right"></div>
+      <!-- SURMAILLOT -->
+      <article class="product-card" data-name="Surmaillot" data-price="35.90">
+        <div class="product-image top-right"></div>
         <h3 class="product-title">Surmaillot</h3>
         <div class="product-meta">
           <div class="price">35,90 €</div>
           <label>Taille
             <select class="size">
-              <option value="Aucun">Aucun</option>
-              <option>S">S</option>
-              <option>M">M</option>
-              <option>L">L</option>
-              <option>XL">XL</option>
+              <option>Aucun</option><option>S</option><option>M</option><option>L</option><option>XL</option>
             </select>
           </label>
           <label>Quantité
-            <select class="qty">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
+            <select class="qty"><option>0</option><option>1</option><option>2</option><option>3</option></select>
           </label>
         </div>
       </article>
 
-      <article class="product-card" data-name="Jogging" data-price="19.90" data-pos="bottom left">
-        <div class="product-image crop bottom-left"></div>
+      <!-- JOGGING -->
+      <article class="product-card" data-name="Jogging" data-price="19.90">
+        <div class="product-image bottom-left"></div>
         <h3 class="product-title">Jogging</h3>
         <div class="product-meta">
           <div class="price">19,90 €</div>
           <label>Taille
             <select class="size">
-              <option value="Aucun">Aucun</option>
-              <option>S">S</option>
-              <option>M">M</option>
-              <option>L">L</option>
-              <option>XL">XL</option>
+              <option>Aucun</option><option>S</option><option>M</option><option>L</option><option>XL</option>
             </select>
           </label>
           <label>Quantité
-            <select class="qty">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
+            <select class="qty"><option>0</option><option>1</option><option>2</option><option>3</option></select>
           </label>
         </div>
       </article>
 
-      <article class="product-card" data-name="Sweat Zippé" data-price="22.90" data-pos="bottom right">
-        <div class="product-image crop bottom-right"></div>
+      <!-- SWEAT ZIPPE -->
+      <article class="product-card" data-name="Sweat Zippé" data-price="22.90">
+        <div class="product-image bottom-right"></div>
         <h3 class="product-title">Sweat Zippé</h3>
         <div class="product-meta">
           <div class="price">22,90 €</div>
           <label>Taille
             <select class="size">
-              <option value="Aucun">Aucun</option>
-              <option>S">S</option>
-              <option>M">M</option>
-              <option>L">L</option>
-              <option>XL">XL</option>
+              <option>Aucun</option><option>S</option><option>M</option><option>L</option><option>XL</option>
             </select>
           </label>
           <label>Quantité
-            <select class="qty">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
+            <select class="qty"><option>0</option><option>1</option><option>2</option><option>3</option></select>
           </label>
         </div>
       </article>
@@ -130,9 +103,10 @@
     <section class="order container-form">
       <h2>Finaliser la commande</h2>
 
-      <!-- Formsubmit : remplace YOUR-EMAIL@EXAMPLE.COM par ta vraie adresse -->
-      <form id="order-form" action="https://formsubmit.co/YOUR-EMAIL@EXAMPLE.COM" method="POST" onsubmit="return prepareAndSend(event)">
+      <!-- ADRESSE MAIL À MODIFIER -->
+      <form id="order-form" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" onsubmit="return prepareAndSend(event)">
         <div class="form-grid">
+
           <label>Nom & Prénom
             <input type="text" name="Nom" required>
           </label>
@@ -141,35 +115,24 @@
             <input type="text" name="Numéro" required>
           </label>
 
-          <label>Equipe / Poste
-            <input type="text" name="Equipe" required>
+          <label>Équipe
+            <input type="text" name="Équipe" required>
           </label>
 
-          <label>Commentaire (optionnel)
-            <input type="text" name="Commentaire">
-          </label>
         </div>
 
-        <!-- champ caché qui recevra le récapitulatif généré en JS -->
         <input type="hidden" name="Commande" id="hidden-commande">
-
-        <!-- Formsubmit settings (désactive captcha et personnalise le sujet) -->
-        <input type="hidden" name="_subject" value="Nouvelle commande - Saint Marc Basketball">
         <input type="hidden" name="_captcha" value="false">
 
         <button class="btn-primary" type="submit">Envoyer la commande</button>
       </form>
 
-      <div id="order-summary" class="order-summary" aria-live="polite">
-        <!-- résumé dynamique affiché côté client -->
-      </div>
+      <div id="order-summary" class="order-summary"></div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 - Saint Marc Basketball • Commandes directes</p>
+    <p>© 2025 - Saint Marc Basketball</p>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
