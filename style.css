@@ -61,10 +61,10 @@ body{
 }
 
 /* Découpe visuelle 4 produits */
-.top-left     { background-image:url("commande.png"); }
-.top-right    { background-image:url("commande.png"); }
-.bottom-left  { background-image:url("commande.png"); }
-.bottom-right { background-image:url("commande.png"); }
+.top-left     { background-image:url("sweat.png"); }
+.top-right    { background-image:url("surmaillot.png"); }
+.bottom-left  { background-image:url("jogging.png"); }
+.bottom-right { background-image:url("veste.png"); }
 
 .product-title{
   margin:0 0 0.5rem 0;
