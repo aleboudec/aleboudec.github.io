@@ -1,93 +1,92 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Boutique — Saint Marc Basketball</title>
-  <meta name="description" content="Boutique officielle du Foyer Laïque de Saint Marc Basketball — commandez vos sweats, surmaillots et joggings." />
+  <meta name="description" content="Boutique officielle du Foyer Laïque de Saint Marc Basketball." />
 
-  <!-- Tailwind CDN for quick prototype -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#0b5ed7',
-            accent: '#ff7a59'
+            primary: '#2F4A40',
+            accent: '#5EC19E',
+            highlight: '#A7E6C4',
+            contrast: '#FFFFFF'
+          },
+          boxShadow: {
+            soft: '0 4px 12px rgba(0,0,0,0.08)',
+            card: '0 8px 20px rgba(0,0,0,0.12)'
+          },
+          borderRadius: {
+            xl2: '1.25rem'
           }
         }
       }
     }
   </script>
 
-  <!-- Simple reset + smoother fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-    .fade-up { transform: translateY(8px); opacity: 0; transition: all .45s ease; }
-    .fade-up.visible { transform: translateY(0); opacity: 1; }
+    body { font-family: 'Inter', system-ui; }
+    .fade { opacity: 0; transform: translateY(12px); transition: .6s ease; }
+    .fade.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <!-- Header -->
-  <header class="bg-white shadow-sm">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="/logo.png" alt="Logo du club" class="w-12 h-12 object-contain rounded" onerror="this.style.display='none'" />
+        <img src="/logo.png" class="w-12 h-12 rounded" onerror="this.style.display='none'" />
         <div>
           <h1 class="text-lg font-extrabold">Saint Marc Basketball</h1>
-          <p class="text-xs text-gray-500">Boutique officielle</p>
+          <p class="text-xs text-gray-600">Boutique officielle</p>
         </div>
       </div>
-
-      <nav class="hidden md:flex gap-6 items-center">
-        <a href="#products" class="text-sm hover:text-primary">Produits</a>
-        <a href="#order" class="text-sm hover:text-primary">Commander</a>
-        <a href="#contact" class="text-sm text-gray-600 hover:text-primary">Contact</a>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="#products" class="hover:text-accent">Produits</a>
+        <a href="#order" class="hover:text-accent">Commander</a>
+        <a href="#contact" class="hover:text-accent">Contact</a>
       </nav>
-
-      <div class="flex items-center gap-3">
-        <button id="darkToggle" class="text-xs px-3 py-2 rounded-md border">Dark</button>
-        <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})" class="bg-primary text-white px-4 py-2 rounded-md text-sm">Commander</button>
-      </div>
+      <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})" class="bg-accent text-white px-4 py-2 rounded-xl2 shadow-soft hover:bg-highlight">Commander</button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <h2 class="text-3xl md:text-4xl font-extrabold mb-4">La boutique officielle<br class="hidden md:inline">du Foyer Laïque de Saint Marc Basketball</h2>
-      <p class="text-gray-600 mb-6">Choisissez vos tailles, remplissez vos informations et envoyez votre commande rapidement. Livraison lors des entraînements.</p>
-      <div class="flex gap-3">
-        <a href="#products" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border hover:bg-gray-100">Voir les produits</a>
-        <a href="#order" class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-accent text-white hover:opacity-95">Commander maintenant</a>
+  <!-- HERO -->
+  <section class="pt-32 pb-16 bg-gradient-to-br from-primary to-accent text-white">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div class="fade">
+        <h2 class="text-4xl font-extrabold mb-4 leading-tight">La boutique officielle<br>du Foyer Laïque de Saint Marc Basketball</h2>
+        <p class="text-white/90 mb-6 text-lg">Commandez vos équipements du club en quelques clics. Simple, rapide, sécurisé.</p>
+        <div class="flex gap-4">
+          <a href="#products" class="px-5 py-3 rounded-xl2 bg-white text-primary font-semibold shadow-soft hover:bg-highlight/40">Voir les produits</a>
+          <a href="#order" class="px-5 py-3 rounded-xl2 bg-primary border border-white/40 text-white font-semibold hover:bg-primary/80">Commander maintenant</a>
+        </div>
       </div>
-    </div>
-    <div class="bg-white rounded-xl shadow p-6">
-      <h3 class="font-bold text-lg mb-4">Résumé rapide</h3>
-      <ul class="space-y-3 text-sm text-gray-700">
-        <li>✔️ Sweats, Surmaillots, Jogging, Sweat zippé</li>
-        <li>✔️ Tailles S → XL</li>
-        <li>✔️ Paiement sur place / lors de la remise</li>
-      </ul>
+      <div class="fade">
+        <div class="bg-white/20 backdrop-blur p-8 rounded-xl2 shadow-card text-white text-lg font-semibold">✔️ Produits officiels<br>✔️ Tailles S → XL<br>✔️ Livraison au club</div>
+      </div>
     </div>
   </section>
 
-  <!-- Products grid -->
-  <section id="products" class="max-w-5xl mx-auto px-6 pb-12">
-    <h3 class="text-2xl font-bold mb-6">Produits</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-      <!-- Product card (repeatable) -->
+  <!-- PRODUCTS -->
+  <section id="products" class="max-w-6xl mx-auto px-6 py-16">
+    <h3 class="text-3xl font-bold mb-10 fade">Produits</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <template id="product-template">
-        <div class="bg-white rounded-xl shadow p-4 flex flex-col">
-          <div class="h-36 bg-gray-100 rounded-md mb-4 flex items-center justify-center">IMG</div>
-          <h4 class="font-semibold">Nom produit</h4>
-          <p class="text-sm text-gray-600 mt-1">Description courte</p>
+        <div class="bg-white rounded-xl2 shadow-card p-4 flex flex-col hover:-translate-y-1 hover:shadow-2xl transition fade">
+          <div class="h-40 bg-gray-100 rounded-xl2 mb-4 overflow-hidden flex items-center justify-center">
+            <img class="product-img w-full h-full object-cover" />
+          </div>
+          <h4 class="font-semibold text-lg"></h4>
+          <p class="text-sm text-gray-600 mt-1"></p>
           <div class="mt-4 flex items-center justify-between">
-            <div class="text-lg font-bold">€0</div>
+            <div class="text-xl font-bold text-primary price"></div>
             <div class="flex items-center gap-2">
               <select class="size-selector text-sm border rounded px-2 py-1">
                 <option value="">Taille</option>
@@ -101,148 +100,58 @@
           </div>
         </div>
       </template>
-
     </div>
   </section>
 
-  <!-- Order form -->
-  <section id="order" class="max-w-4xl mx-auto px-6 pb-20">
-    <div class="bg-white rounded-xl shadow p-8">
-      <h3 class="text-2xl font-bold mb-4">Finaliser la commande</h3>
-
-      <form id="orderForm" class="space-y-4">
+  <!-- ORDER -->
+  <section id="order" class="max-w-5xl mx-auto px-6 py-16">
+    <div class="bg-white rounded-xl2 shadow-card p-10 fade">
+      <h3 class="text-3xl font-bold mb-6">Finaliser la commande</h3>
+      <form id="orderForm" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input name="lastName" required placeholder="Nom" class="border rounded px-3 py-2" />
-          <input name="firstName" required placeholder="Prénom" class="border rounded px-3 py-2" />
+          <input name="lastName" required placeholder="Nom" class="border rounded-xl2 px-4 py-3" />
+          <input name="firstName" required placeholder="Prénom" class="border rounded-xl2 px-4 py-3" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input name="email" type="email" required placeholder="Email" class="border rounded-xl2 px-4 py-3" />
+          <input name="phone" placeholder="Téléphone (optionnel)" class="border rounded-xl2 px-4 py-3" />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input name="email" type="email" required placeholder="Email" class="border rounded px-3 py-2" />
-          <input name="phone" placeholder="Téléphone (optionnel)" class="border rounded px-3 py-2" />
-        </div>
-
-        <div class="border rounded p-4">
-          <h4 class="font-semibold mb-2">Panier</h4>
+        <div class="border rounded-xl2 p-4 bg-gray-50">
+          <h4 class="font-semibold mb-3 text-primary">Panier</h4>
           <div id="cartList" class="text-sm text-gray-700 space-y-2">Aucun article sélectionné.</div>
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-600">Total estimé:</div>
-          <div id="total" class="text-lg font-bold">€0</div>
+        <div class="flex items-center justify-between text-lg">
+          <span class="text-gray-600">Total estimé :</span>
+          <span id="total" class="font-bold text-primary">€0</span>
         </div>
 
-        <div class="flex gap-3">
-          <button type="button" id="emailOrder" class="px-4 py-2 rounded-md border">Envoyer par email</button>
-          <button type="submit" class="px-4 py-2 rounded-md bg-primary text-white">Envoyer la commande</button>
-        </div>
+        <button type="submit" class="w-full px-6 py-3 rounded-xl2 bg-accent text-white font-semibold hover:bg-highlight">Envoyer la commande par email</button>
       </form>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer id="contact" class="bg-white border-t">
-    <div class="max-w-5xl mx-auto px-6 py-6 text-sm text-gray-600 flex items-center justify-between">
+  <!-- FOOTER -->
+  <footer id="contact" class="bg-primary text-white py-6 mt-16">
+    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center text-sm">
       <div>© 2025 - Foyer Laïque de Saint Marc Basketball</div>
-      <div>Besoin d'aide ? <a href="mailto:contact@saintmarcbasket.fr" class="text-primary">contact@saintmarcbasket.fr</a></div>
+      <div>Contact : <a href="mailto:contact@saintmarcbasket.fr" class="underline">contact@saintmarcbasket.fr</a></div>
     </div>
   </footer>
 
-  <!-- Script: populate products + interactions -->
   <script>
     const products = [
-      { id: 'sweat', name: 'Sweat', price: 24.9, desc: 'Sweat classique brodé', img: '' },
-      { id: 'surmaillot', name: 'Surmaillot', price: 35.9, desc: 'Surmaillot léger', img: '' },
-      { id: 'jogging', name: 'Jogging', price: 19.9, desc: 'Pantalon de jogging', img: '' },
-      { id: 'sweat-zip', name: 'Sweat zippé', price: 22.9, desc: 'Sweat à capuche zippé', img: '' }
+      { id: 'sweat', name: 'Sweat', price: 24.9, desc: 'Sweat classique brodé', img: '/mnt/data/sweat.png' },
+      { id: 'surmaillot', name: 'Surmaillot', price: 35.9, desc: 'Surmaillot léger', img: '/mnt/data/surmaillot.png' },
+      { id: 'jogging', name: 'Jogging', price: 19.9, desc: 'Pantalon de jogging', img: '/mnt/data/jogging.png' },
+      { id: 'sweat-zip', name: 'Sweat zippé', price: 22.9, desc: 'Sweat à capuche zippé', img: '/mnt/data/veste.png' }
     ];
 
-    // render product cards
     const grid = document.querySelector('#products .grid');
     const tpl = document.getElementById('product-template');
+
     products.forEach(p => {
       const node = tpl.content.cloneNode(true);
       node.querySelector('h4').textContent = p.name;
-      node.querySelector('.text-sm').textContent = p.desc;
-      node.querySelector('.text-lg').textContent = '€' + p.price.toFixed(2);
-      node.querySelector('.h-36').textContent = '';
-      // image placeholder
-      const imgBox = node.querySelector('.h-36');
-      imgBox.innerHTML = `<div class="text-xs text-gray-400">${p.name}</div>`;
-      const sizeSel = node.querySelector('.size-selector');
-      const qty = node.querySelector('.qty-input');
-
-      qty.addEventListener('change', () => updateCart());
-      sizeSel.addEventListener('change', () => updateCart());
-
-      // attach meta
-      node.firstElementChild.dataset.id = p.id;
-      node.firstElementChild.dataset.price = p.price;
-
-      grid.appendChild(node);
-    });
-
-    function updateCart() {
-      const cards = Array.from(document.querySelectorAll('#products [data-id]'));
-      const cart = [];
-      let total = 0;
-      cards.forEach(card => {
-        const id = card.dataset.id;
-        const price = parseFloat(card.dataset.price);
-        const qtyInput = card.querySelector('.qty-input');
-        const sizeSel = card.querySelector('.size-selector');
-        const qty = Number(qtyInput.value || 0);
-        const size = sizeSel.value || '';
-        if (qty > 0) {
-          cart.push({ id, name: card.querySelector('h4').textContent, qty, size, price });
-          total += qty * price;
-        }
-      });
-
-      const cartList = document.getElementById('cartList');
-      const totalEl = document.getElementById('total');
-      if (cart.length === 0) cartList.textContent = 'Aucun article sélectionné.';
-      else {
-        cartList.innerHTML = cart.map(i => `<div>${i.qty} × ${i.name} ${i.size?(' — '+i.size):''} (<strong>€${(i.price*i.qty).toFixed(2)}</strong>)</div>`).join('');
-      }
-      totalEl.textContent = '€' + total.toFixed(2);
-    }
-
-    // email order helper
-    document.getElementById('emailOrder').addEventListener('click', () => {
-      const form = document.getElementById('orderForm');
-      const data = new FormData(form);
-      updateCart();
-      const cartText = document.getElementById('cartList').innerText || 'Aucun article sélectionné.';
-      const body = `Commande%0A%0AClient:%20${encodeURIComponent(data.get('firstName')+' '+data.get('lastName'))}%0AEmail:%20${encodeURIComponent(data.get('email'))}%0A%0AArticles:%0A${encodeURIComponent(cartText)}%0A%0ATotal:%20${encodeURIComponent(document.getElementById('total').textContent)}`;
-      const mailto = `mailto:contact@saintmarcbasket.fr?subject=Commande%20boutique&body=${body}`;
-      window.location.href = mailto;
-    });
-
-    // submit handler (prevents real submission) - you can replace with real backend
-    document.getElementById('orderForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Merci ! Votre commande a été préparée localement — utilisez le bouton "Envoyer par email" pour l'envoyer.');
-    });
-
-    // simple dark mode
-    const darkToggle = document.getElementById('darkToggle');
-    darkToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      document.body.classList.toggle('bg-gray-900');
-      document.body.classList.toggle('text-gray-100');
-    });
-
-    // scroll animate (tiny)
-    const observers = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('section, .fade-up').forEach(el => observers.observe(el));
-
-    // initial cart update
-    updateCart();
-  </script>
-
-</body>
-</html>
+      node.query
