@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merci ! — Saint Marc Basketball</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2F4A40',
+            accent: '#5EC19E',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-16 text-center">
+    <div class="bg-white p-8 sm:p-12 rounded-xl shadow-card">
+      <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-primary mb-4">Merci pour votre commande !</h1>
+      <p class="text-gray-600 mb-6">Nous avons bien reçu votre demande et vous contacterons sous 48h pour finaliser la livraison.</p>
+      <p class="text-sm text-gray-500 mb-8">Un email de confirmation vous a été envoyé à l'adresse indiquée.</p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="bg-accent text-white px-6 py-3 rounded-lg hover:bg-highlight transition-colors font-medium">Retour à la boutique</a>
+        <a href="#contact" class="border border-accent text-accent px-6 py-3 rounded-lg hover:bg-accent/10 transition-colors font-medium">Nous contacter</a>
+      </div>
+
+      <div class="mt-12 text-left text-sm text-gray-500 space-y-2">
+        <p><strong>Besoin d'aide ?</strong></p>
+        <p>Email : <a href="mailto:contact@saintmarcbasket.fr" class="text-accent hover:underline">contact@saintmarcbasket.fr</a></p>
+        <p>Tél : 0X XX XX XX XX</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
