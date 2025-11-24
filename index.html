@@ -1,11 +1,21 @@
-<!-- PARTIE 1/2 : Structure HTML complète jusqu'avant le script JS -->
 <!doctype html>
 <html lang="fr" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Boutique — Saint Marc Basketball</title>
-  <meta name="description" content="Boutique officielle du Foyer Laïque de Saint Marc Basketball." />
+  <title>Boutique — Saint Marc Basketball | Équipements officiels du club</title>
+  <meta name="description" content="Commandez en ligne les maillots, vestes et équipements officiels du Foyer Laïque de Saint Marc Basketball. Livraison au club." />
+  <meta name="keywords" content="basketball, saint marc, maillot basket, jogging basket, veste basket, équipement sportif, club basket, boutique en ligne" />
+  <meta property="og:title" content="Boutique Officielle — Saint Marc Basketball" />
+  <meta property="og:description" content="Découvrez et commandez les équipements officiels du Foyer Laïque de Saint Marc Basketball." />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/2F4A40/FFFFFF?text=Saint+Marc+Basketball" />
+  <meta property="og:url" content="https://votre-utilisateur.github.io" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Pré-chargement des ressources critiques -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -20,10 +30,21 @@
           },
           boxShadow: {
             soft: '0 4px 12px rgba(0,0,0,0.08)',
-            card: '0 8px 20px rgba(0,0,0,0.12)'
+            card: '0 8px 20px rgba(0,0,0,0.12)',
+            hover: '0 12px 24px rgba(0,0,0,0.15)'
           },
           borderRadius: {
             xl2: '1.25rem'
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out forwards',
+            'pulse-once': 'pulse 1.5s ease-out 1'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(12px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
           }
         }
       }
@@ -32,226 +53,390 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', system-ui; }
-    .fade { opacity: 0; transform: translateY(12px); transition: .6s ease; }
-    .fade.visible { opacity: 1; transform: translateY(0); }
+    body {
+      font-family: 'Inter', system-ui;
+      padding-top: 80px;
+    }
+    .fade {
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    .fade.delay-1 { animation-delay: 0.1s; }
+    .fade.delay-2 { animation-delay: 0.2s; }
+    .fade.delay-3 { animation-delay: 0.3s; }
+    .product-card {
+      transition: all 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--tw-shadow-hover) !important;
+    }
+    .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #5EC19E;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 0.75rem 1rem;
+      }
+      .hero-content {
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <!-- HEADER -->
-  <header class="fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur shadow-sm">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+  <!-- HEADER AMÉLIORÉ -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-soft transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="logo.png" class="w-12 h-12 rounded" onerror="this.style.display='none'" />
+        <img src="logo.png" class="w-10 h-10 sm:w-12 sm:h-12 rounded object-contain" onerror="this.src='https://via.placeholder.com/50/2F4A40/FFFFFF?text=SM'" />
         <div>
           <h1 class="text-lg font-extrabold">Saint Marc Basketball</h1>
-          <p class="text-xs text-gray-600">Boutique officielle</p>
+          <p class="text-xs text-gray-600 hidden sm:block">Boutique officielle</p>
         </div>
       </div>
-      <nav class="hidden md:flex gap-6 text-sm">
-        <a href="#products" class="hover:text-accent">Produits</a>
-        <a href="#order" class="hover:text-accent">Commander</a>
-        <a href="#contact" class="hover:text-accent">Contact</a>
+      <nav class="hidden md:flex gap-6 text-sm font-medium">
+        <a href="#products" class="hover:text-accent transition-colors">Produits</a>
+        <a href="#order" class="hover:text-accent transition-colors">Commander</a>
+        <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
       </nav>
-      <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})" class="bg-accent text-white px-4 py-2 rounded-xl2 shadow-soft hover:bg-highlight">Commander</button>
+      <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})"
+              class="bg-accent text-white px-3 sm:px-4 py-2 rounded-xl2 shadow-soft hover:bg-highlight transition-colors text-sm sm:text-base">
+        Commander
+      </button>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="pt-32 pb-16 bg-gradient-to-br from-primary to-accent text-white">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-      <div class="fade">
-        <h2 class="text-4xl font-extrabold mb-4 leading-tight">La boutique officielle<br>du Foyer Laïque de Saint Marc Basketball</h2>
-        <p class="text-white/90 mb-6 text-lg">Commandez vos équipements du club en quelques clics. Simple, rapide, sécurisé.</p>
-        <div class="flex gap-4">
-          <a href="#products" class="px-5 py-3 rounded-xl2 bg-white text-primary font-semibold shadow-soft hover:bg-highlight/40">Voir les produits</a>
-          <a href="#order" class="px-5 py-3 rounded-xl2 bg-primary border border-white/40 text-white font-semibold hover:bg-primary/80">Commander maintenant</a>
+  <!-- HERO AMÉLIORÉ -->
+  <section class="pt-28 pb-16 bg-gradient-to-br from-primary to-accent text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div class="hero-content fade delay-1">
+        <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Équipement officiel<br>du <span class="text-highlight">Foyer Laïque</span></h2>
+        <p class="text-white/90 mb-6 text-lg">Commandez vos maillots, vestes et accessoires du club en quelques clics. Livraison directement au gymnase.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#products" class="px-5 py-3 rounded-xl2 bg-white text-primary font-semibold shadow-soft hover:bg-highlight/40 transition-all text-center">Voir les produits</a>
+          <a href="#order" class="px-5 py-3 rounded-xl2 bg-primary border border-white/40 text-white font-semibold hover:bg-primary/80 transition-all text-center">Commander maintenant</a>
         </div>
       </div>
-      <div class="fade">
-        <div class="bg-white/20 backdrop-blur p-8 rounded-xl2 shadow-card text-white text-lg font-semibold">✔️ Produits officiels<br>✔️ Tailles S → XL<br>✔️ Livraison au club</div>
+      <div class="fade delay-2">
+        <div class="bg-white/20 backdrop-blur p-6 sm:p-8 rounded-xl2 shadow-card text-white">
+          <ul class="space-y-3 text-lg font-semibold">
+            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Produits 100% officiels</li>
+            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Tailles S → XL disponibles</li>
+            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Livraison au club sous 7 jours</li>
+            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Paiement sécurisé</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTS -->
-  <section id="products" class="max-w-6xl mx-auto px-6 py-16">
-    <h3 class="text-3xl font-bold mb-10 fade">Produits</h3>
-    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+  <!-- PRODUITS AMÉLIORÉS -->
+  <section id="products" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    <h3 class="text-3xl font-bold mb-8 sm:mb-10 text-center fade delay-1">Nos <span class="text-accent">produits</span></h3>
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
   </section>
 
-  <!-- ORDER -->
-  <section id="order" class="max-w-5xl mx-auto px-6 py-16">
-    <div class="bg-white rounded-xl2 shadow-card p-10 fade">
-      <h3 class="text-3xl font-bold mb-6">Finaliser la commande</h3>
-      <form id="orderForm" class="space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input name="lastName" required placeholder="Nom" class="border rounded-xl2 px-4 py-3" />
-          <input name="firstName" required placeholder="Prénom" class="border rounded-xl2 px-4 py-3" />
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input name="email" type="email" required placeholder="Email" class="border rounded-xl2 px-4 py-3" />
-          <input name="phone" placeholder="Téléphone (optionnel)" class="border rounded-xl2 px-4 py-3" />
+  <!-- PANIER VISIBLE -->
+  <div class="fixed bottom-4 right-4 z-40">
+    <div id="floatingCart" class="bg-white rounded-xl2 shadow-card p-4 w-64 sm:w-72 border border-gray-100 transform transition-all duration-300 translate-y-2 opacity-0 invisible">
+      <h4 class="font-bold text-lg mb-3 flex justify-between items-center">
+        Votre panier
+        <span id="cartItemCount" class="bg-accent text-white text-xs px-2 py-1 rounded-full">0</span>
+      </h4>
+      <div id="cartList" class="max-h-40 overflow-y-auto mb-3 text-sm">
+        <p class="text-gray-500">Aucun article</p>
+      </div>
+      <div class="font-bold text-right text-accent">
+        Total : <span id="total">0€</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULAIRE DE COMMANDE AMÉLIORÉ -->
+  <section id="order" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    <div class="bg-white rounded-xl2 shadow-card p-6 sm:p-10 fade delay-1">
+      <h3 class="text-3xl font-bold mb-6 text-center">Finaliser votre commande</h3>
+
+      <form id="orderForm" action="https://formsubmit.co/contact@saintmarcbasket.fr" method="POST" class="space-y-6">
+        <input type="hidden" name="_subject" value="Nouvelle commande Boutique Saint Marc">
+        <input type="hidden" name="_next" value="https://votre-utilisateur.github.io/merci.html">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div>
+            <label for="lastName" class="block text-sm font-medium mb-1">Nom*</label>
+            <input type="text" id="lastName" name="lastName" required
+                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
+          </div>
+          <div>
+            <label for="firstName" class="block text-sm font-medium mb-1">Prénom*</label>
+            <input type="text" id="firstName" name="firstName" required
+                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="email" class="block text-sm font-medium mb-1">Email*</label>
+            <input type="email" id="email" name="email" required
+                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="phone" class="block text-sm font-medium mb-1">Téléphone</label>
+            <input type="tel" id="phone" name="phone"
+                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
+          </div>
         </div>
 
-        <div class="border rounded-xl2 p-4 bg-gray-50">
-          <h4 class="font-semibold mb-3 text-primary">Panier</h4>
-          <div id="cartList" class="text-sm text-gray-700 space-y-2">Aucun article sélectionné.</div>
+        <div class="border-t pt-6 mt-4">
+          <h4 class="font-bold mb-4">Récapitulatif de la commande</h4>
+          <div id="orderSummary" class="mb-4">
+            <p class="text-gray-500">Votre panier est vide</p>
+          </div>
+          <div class="font-bold text-right text-lg text-accent">
+            Total : <span id="orderTotal">0€</span>
+          </div>
         </div>
 
-        <div class="flex items-center justify-between text-lg">
-          <span class="text-gray-600">Total estimé :</span>
-          <span id="total" class="font-bold text-primary">€0</span>
+        <div class="text-center pt-4">
+          <button type="submit" class="w-full sm:w-auto bg-accent text-white px-8 py-3 rounded-xl2 shadow-soft hover:bg-highlight transition-colors font-semibold">
+            Valider la commande
+          </button>
         </div>
-
-        <button type="submit" class="w-full px-6 py-3 rounded-xl2 bg-accent text-white font-semibold hover:bg-highlight">Envoyer la commande par email</button>
       </form>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer id="contact" class="bg-primary text-white py-6 mt-16">
-    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center text-sm">
-      <div>© 2025 - Foyer Laïque de Saint Marc Basketball</div>
-      <div>Contact : <a href="mailto:contact@saintmarcbasket.fr" class="underline">contact@saintmarcbasket.fr</a></div>
+  <!-- FOOTER AMÉLIORÉ -->
+  <footer id="contact" class="bg-primary text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h4 class="font-bold mb-4">Saint Marc Basketball</h4>
+          <p class="text-sm text-white/80">Foyer Laïque de Saint Marc<br>Lyon, France</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Contact</h4>
+          <p class="text-sm"><a href="mailto:contact@saintmarcbasket.fr" class="hover:text-highlight transition-colors">contact@saintmarcbasket.fr</a></p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Suivez-nous</h4>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-highlight transition-colors">Facebook</a>
+            <a href="#" class="hover:text-highlight transition-colors">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/20 pt-6 text-center text-sm text-white/60">
+        © 2025 Foyer Laïque de Saint Marc Basketball. Tous droits réservés.
+      </div>
     </div>
   </footer>
 
-  <!-- PARTIE 2/2 : SCRIPT JS COMPLET -->
-<script>
-// === PRODUITS ===
-const products = [
-  {
-    id: 1,
-    name: "Surmaillot Officiel",
-    price: 25,
-    img: "surmaillot.png",
-    sizes: ["S", "M", "L", "XL"]
-  },
-  {
-    id: 2,
-    name: "Jogging Officiel",
-    price: 35,
-    img: "jogging.png",
-    sizes: ["S", "M", "L", "XL"]
-  },
-  {
-    id: 3,
-    name: "Veste Zippée",
-    price: 45,
-    img: "veste.png",
-    sizes: ["S", "M", "L", "XL"]
-  },
-  {
-    id: 4,
-    name: "Sweat",
-    price: 40,
-    img: "sweat.png",
-    sizes: ["S", "M", "L", "XL"]
-  }
-];
+  <!-- SCRIPT COMPLET AMÉLIORÉ -->
+  <script>
+    // === DONNÉES PRODUITS ===
+    const products = [
+      {
+        id: 1,
+        name: "Surmaillot Officiel",
+        price: 25,
+        img: "surmaillot.png",
+        sizes: ["S", "M", "L", "XL"],
+        new: true
+      },
+      {
+        id: 2,
+        name: "Jogging Officiel",
+        price: 35,
+        img: "jogging.png",
+        sizes: ["S", "M", "L", "XL"]
+      },
+      {
+        id: 3,
+        name: "Veste Zippée",
+        price: 45,
+        img: "veste.png",
+        sizes: ["S", "M", "L", "XL"]
+      },
+      {
+        id: 4,
+        name: "Sweat à Capuche",
+        price: 40,
+        img: "sweat.png",
+        sizes: ["S", "M", "L", "XL"]
+      }
+    ];
 
-const productGrid = document.getElementById("productGrid");
-const cartList = document.getElementById("cartList");
-const totalDisplay = document.getElementById("total");
-let cart = [];
+    // === ÉLÉMENTS DOM ===
+    const productGrid = document.getElementById("productGrid");
+    const cartList = document.getElementById("cartList");
+    const floatingCart = document.getElementById("floatingCart");
+    const cartItemCount = document.getElementById("cartItemCount");
+    const totalDisplay = document.getElementById("total");
+    const orderSummary = document.getElementById("orderSummary");
+    const orderTotal = document.getElementById("orderTotal");
 
-// === AFFICHAGE DES PRODUITS ===
-products.forEach(product => {
-  const card = document.createElement("div");
-  card.className = "bg-white rounded-xl2 shadow-card p-4 fade flex flex-col";
+    // === PANIER (avec localStorage) ===
+    let cart = JSON.parse(localStorage.getItem('smbCart')) || [];
 
-  card.innerHTML = `
-    <img src="${product.img}" class="w-full h-40 object-contain mb-4" />
-    <h4 class="font-semibold text-lg">${product.name}</h4>
-    <p class="text-primary font-bold mb-3">${product.price}€</p>
-    <label class="text-sm">Taille :</label>
-    <select id="size-${product.id}" class="border rounded-xl2 px-3 py-2 mb-3 w-full">
-      ${product.sizes.map(s => `<option value="${s}">${s}</option>`).join('')}
-    </select>
-    <button onclick="addToCart(${product.id})" class="mt-auto bg-accent text-white py-2 rounded-xl2 hover:bg-highlight">Ajouter au panier</button>
-  `;
+    // === AFFICHAGE DES PRODUITS ===
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card bg-white rounded-xl2 shadow-card p-4 fade delay-2 relative";
 
-  productGrid.appendChild(card);
-});
+      card.innerHTML = `
+        ${product.new ? '<span class="badge">Nouveau</span>' : ''}
+        <img src="${product.img}" loading="lazy" class="w-full h-48 sm:h-56 object-contain mb-4"
+             onerror="this.src='https://via.placeholder.com/300/2F4A40/FFFFFF?text=${encodeURIComponent(product.name)}'">
+        <h4 class="font-semibold text-lg mb-1">${product.name}</h4>
+        <p class="text-primary font-bold mb-3">${product.price}€</p>
 
-// === AJOUT AU PANIER ===
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  const size = document.getElementById(`size-${id}`).value;
+        <div class="flex items-center gap-2 mb-3">
+          <label class="text-sm">Quantité :</label>
+          <input type="number" id="quantity-${product.id}" min="1" value="1"
+                 class="w-16 border rounded-xl2 px-2 py-1 text-center">
+        </div>
 
-  cart.push({ ...product, size });
-  updateCart();
-}
+        <label class="text-sm block mb-2">Taille :</label>
+        <select id="size-${product.id}" class="border rounded-xl2 px-3 py-2 w-full mb-4">
+          ${product.sizes.map(s => `<option value="${s}">${s}</option>`).join('')}
+        </select>
 
-// === MISE À JOUR AFFICHAGE PANIER ===
-function updateCart() {
-  if (cart.length === 0) {
-    cartList.innerHTML = "Aucun article sélectionné.";
-    totalDisplay.textContent = "0€";
-    return;
-  }
+        <button onclick="addToCart(${product.id})"
+                class="w-full bg-accent text-white py-2 rounded-xl2 hover:bg-highlight transition-colors product-card-button">
+          Ajouter au panier
+        </button>
+      `;
 
-  cartList.innerHTML = cart.map(item => `
-    <div class="flex justify-between border-b pb-1">
-      <span>${item.name} (${item.size})</span>
-      <strong>${item.price}€</strong>
-    </div>
-  `).join('');
+      productGrid.appendChild(card);
+    });
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  totalDisplay.textContent = total + "€";
-}
+    // === GESTION DU PANIER ===
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      const size = document.getElementById(`size-${id}`).value;
+      const quantity = parseInt(document.getElementById(`quantity-${id}`).value);
 
-// === ENVOI DU FORMULAIRE PAR EMAIL ===
-document.getElementById("orderForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+      // Vérifier si le produit existe déjà dans le panier avec la même taille
+      const existingItem = cart.find(item => item.id === id && item.size === size);
 
-  if (cart.length === 0) {
-    alert("Votre panier est vide !");
-    return;
-  }
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        cart.push({ ...product, size, quantity });
+      }
 
-  const data = new FormData(this);
-  let message = `Nouvelle commande :
+      updateCart();
 
-`;
+      // Animation du bouton
+      const button = event.target;
+      button.textContent = "Ajouté !";
+      button.classList.add("bg-highlight", "animate-pulse-once");
+      setTimeout(() => {
+        button.textContent = "Ajouter au panier";
+        button.classList.remove("bg-highlight");
+      }, 1500);
 
-  message += `Nom : ${data.get('lastName')}
-`;
-  message += `Prénom : ${data.get('firstName')}
-`;
-  message += `Email : ${data.get('email')}
-`;
-  message += `Téléphone : ${data.get('phone')}
+      // Afficher le panier flottant
+      floatingCart.classList.remove("translate-y-2", "opacity-0", "invisible");
+      setTimeout(() => {
+        floatingCart.classList.add("translate-y-0", "opacity-100", "visible");
+      }, 10);
+    }
 
-`;
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
 
-  message += `--- PANIER ---
-`;
-  cart.forEach(item => {
-    message += `${item.name} (${item.size}) — ${item.price}€
-`;
-  });
+    function updateCart() {
+      // Sauvegarder dans localStorage
+      localStorage.setItem('smbCart', JSON.stringify(cart));
 
-  message += `
-TOTAL : ${totalDisplay.textContent}
-`;
+      // Mettre à jour le compteur
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartItemCount.textContent = totalItems;
+      cartItemCount.classList.toggle('hidden', totalItems === 0);
 
-  const mailto = `mailto:contact@saintmarcbasket.fr?subject=Commande Boutique&body=${encodeURIComponent(message)}`;
+      // Mettre à jour la liste du panier
+      if (cart.length === 0) {
+        cartList.innerHTML = '<p class="text-gray-500 text-sm">Aucun article</p>';
+        orderSummary.innerHTML = '<p class="text-gray-500">Votre panier est vide</p>';
+        totalDisplay.textContent = "0€";
+        orderTotal.textContent = "0€";
+        floatingCart.classList.add("translate-y-2", "opacity-0");
+        setTimeout(() => {
+          floatingCart.classList.add("invisible");
+        }, 300);
+        return;
+      }
 
-  window.location.href = mailto;
-});
+      // Liste dans le panier flottant
+      cartList.innerHTML = cart.map((item, index) => `
+        <div class="flex justify-between items-start py-2 border-b border-gray-100 last:border-0">
+          <div>
+            <p class="font-medium">${item.name}</p>
+            <p class="text-sm text-gray-500">${item.size} × ${item.quantity}</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium">${item.price * item.quantity}€</p>
+            <button onclick="removeFromCart(${index})" class="text-xs text-red-500 hover:text-red-700">×</button>
+          </div>
+        </div>
+      `).join('');
 
-// === ANIMATION D'APPARITION ===
-const fadeElements = document.querySelectorAll('.fade');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-});
-fadeElements.forEach(el => observer.observe(el));
-</script>
+      // Récapitulatif dans le formulaire
+      orderSummary.innerHTML = cart.map(item => `
+        <div class="flex justify-between py-1">
+          <span>${item.name} (${item.size}) × ${item.quantity}</span>
+          <span>${item.price * item.quantity}€</span>
+        </div>
+      `).join('');
+
+      // Calcul du total
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      totalDisplay.textContent = `${total}€`;
+      orderTotal.textContent = `${total}€`;
+    }
+
+    // === VALIDATION DU FORMULAIRE ===
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      if (cart.length === 0) {
+        e.preventDefault();
+        alert("Votre panier est vide ! Ajoutez des articles avant de commander.");
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // === ANIMATIONS AU SCROLL ===
+    const fadeElements = document.querySelectorAll('.fade');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(el => observer.observe(el));
+
+    // === INITIALISATION ===
+    updateCart();
+
+    // === GESTION DU PANIER FLOTTANT ===
+    document.addEventListener('click', function(e) {
+      if (!floatingCart.contains(e.target) && !e.target.closest('.product-card-button')) {
+        // Ne rien faire, le panier reste visible
+      }
+    });
+  </script>
 </body>
 </html>
