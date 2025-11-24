@@ -293,7 +293,6 @@
       </div>
       <nav class="hidden md:flex gap-6 text-sm font-medium">
         <a href="#products" class="hover:text-accent transition-colors">Produits</a>
-        <a href="#order" class="hover:text-accent transition-colors">Commander</a>
         <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
       </nav>
       <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})"
@@ -307,8 +306,8 @@
   <section class="pt-28 pb-16 bg-gradient-to-br from-primary to-accent text-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 items-center">
       <div class="hero-content fade delay-1">
-        <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Équipement officiel<br>du <span class="text-highlight">Foyer Laïque</span></h2>
-        <p class="text-white/90 mb-6 text-lg">Commandez vos maillots, vestes et accessoires du club en quelques clics. Livraison directement au gymnase.</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Équipement officiel<br>du <span class="text-highlight">Foyer Laïque de Saint-Marc Basketball</span></h2>
+        <p class="text-white/90 mb-6 text-lg">Commandez vos maillots, vestes et accessoires du club en quelques clics. </p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="#products" class="px-5 py-3 rounded-xl2 bg-white text-primary font-semibold shadow-soft hover:bg-highlight/40 transition-all text-center">Voir les produits</a>
           <a href="#order" class="px-5 py-3 rounded-xl2 bg-primary border border-white/40 text-white font-semibold hover:bg-primary/80 transition-all text-center">Commander maintenant</a>
@@ -318,7 +317,7 @@
         <div class="bg-white/20 backdrop-blur p-6 sm:p-8 rounded-xl2 shadow-card text-white">
           <ul class="space-y-3 text-lg font-semibold">
             <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Produits 100% officiels</li>
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Tailles S → XL disponibles</li>
+            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Tailles S → XXL disponibles</li>
             <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Livraison au club sous 7 jours</li>
             <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Paiement sécurisé</li>
           </ul>
@@ -375,11 +374,7 @@
             <input type="email" id="email" name="email" required
                    class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
           </div>
-          <div class="sm:col-span-2">
-            <label for="phone" class="block text-sm font-medium mb-1">Téléphone</label>
-            <input type="tel" id="phone" name="phone"
-                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
-          </div>
+          
         </div>
 
         <div class="border-t pt-6 mt-4">
@@ -407,11 +402,11 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div>
           <h4 class="font-bold mb-4">Saint Marc Basketball</h4>
-          <p class="text-sm text-white/80">Foyer Laïque de Saint Marc<br>Lyon, France</p>
+          <p class="text-sm text-white/80">Foyer Laïque de Saint Marc<br>Brest, France</p>
         </div>
         <div>
           <h4 class="font-bold mb-4">Contact</h4>
-          <p class="text-sm"><a href="mailto:contact@saintmarcbasket.fr" class="hover:text-highlight transition-colors">contact@saintmarcbasket.fr</a></p>
+          <p class="text-sm"><a href="mailto:leboudec12@gmail.com" class="hover:text-highlight transition-colors">contact@saintmarcbasket.fr</a></p>
         </div>
         <div>
           <h4 class="font-bold mb-4">Suivez-nous</h4>
@@ -433,32 +428,32 @@
     const products = [
       {
         id: 1,
-        name: "Surmaillot Officiel",
+        name: "Surmaillot",
         price: 25,
         img: "surmaillot.png",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL","XXL"],
         new: true
       },
       {
         id: 2,
-        name: "Jogging Officiel",
+        name: "Jogging",
         price: 35,
         img: "jogging.png",
-        sizes: ["S", "M", "L", "XL"]
+        sizes: ["S", "M", "L", "XL","XXL"]
       },
       {
         id: 3,
         name: "Veste Zippée",
         price: 45,
         img: "veste.png",
-        sizes: ["S", "M", "L", "XL"]
+        sizes: ["S", "M", "L", "XL","XXL"]
       },
       {
         id: 4,
         name: "Sweat à Capuche",
         price: 40,
         img: "sweat.png",
-        sizes: ["S", "M", "L", "XL"]
+        sizes: ["S", "M", "L", "XL","XXL"]
       }
     ];
 
