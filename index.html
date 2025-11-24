@@ -38,12 +38,25 @@
           },
           animation: {
             'fade-in': 'fadeIn 0.6s ease-out forwards',
-            'pulse-once': 'pulse 1.5s ease-out 1'
+            'pulse-once': 'pulse 1.5s ease-out 1',
+            'bounce-ball': 'bounce 4s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55), move 12s infinite linear'
           },
           keyframes: {
             fadeIn: {
               '0%': { opacity: '0', transform: 'translateY(12px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            bounce: {
+              '0%': { transform: 'translateY(0)' },
+              '25%': { transform: 'translateY(-100px)' },
+              '50%': { transform: 'translateY(0)' },
+              '75%': { transform: 'translateY(-50px)' },
+              '100%': { transform: 'translateY(0)' }
+            },
+            move: {
+              '0%': { left: '30%' },
+              '50%': { left: '70%' },
+              '100%': { left: '30%' }
             }
           }
         }
@@ -56,7 +69,12 @@
     body {
       font-family: 'Inter', system-ui;
       padding-top: 80px;
+      background-color: #f8f9fa;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* Animations générales */
     .fade {
       opacity: 0;
       animation: fadeIn 0.6s ease-out forwards;
@@ -64,13 +82,8 @@
     .fade.delay-1 { animation-delay: 0.1s; }
     .fade.delay-2 { animation-delay: 0.2s; }
     .fade.delay-3 { animation-delay: 0.3s; }
-    .product-card {
-      transition: all 0.3s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--tw-shadow-hover) !important;
-    }
+
+    /* Badge produit */
     .badge {
       position: absolute;
       top: 1rem;
@@ -82,448 +95,403 @@
       font-size: 0.75rem;
       font-weight: bold;
     }
-    @media (max-width: 768px) {
-      header {
-        padding: 0.75rem 1rem;
-      }
-      .hero-content {
-        text-align: center;
-      }
+
+    /* EFFET ZOOM SUR LES PRODUITS */
+    .product-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      background: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
- /* Conteneur du terrain (fond complet) */
-  .basketball-court {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background: linear-gradient(to bottom, #1a4a3a 0%, #2F4A40 100%);
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  /* Lignes du terrain (version simplifiée et élégante) */
-  .court-lines {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background:
-      /* Ligne centrale */
-      linear-gradient(to right,
-        transparent 49.5%,
-        rgba(255,255,255,0.8) 49.5%,
-        rgba(255,255,255,0.8) 50.5%,
-        transparent 50.5%),
-      /* Raquette (zone restrictive) */
-      repeating-linear-gradient(
-        to right,
-        transparent,
-        transparent 45%,
-        rgba(255,255,255,0.3) 45%,
-        rgba(255,255,255,0.3) 55%,
-        transparent 55%,
-        transparent 100%
-      ),
-      /* Ligne de fond */
-      repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent 45%,
-        rgba(255,255,255,0.5) 45%,
-        rgba(255,255,255,0.5) 55%,
-        transparent 55%,
-        transparent 100%
-      );
-    background-size:
-      100% 4px, /* Ligne centrale */
-      100% 20%, /* Raquette */
-      100% 100%; /* Ligne de fond */
-    opacity: 0.6;
-  }
-
-  /* Cercle central */
-  .center-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 80px;
-    height: 80px;
-    border: 2px solid rgba(255,255,255,0.7);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.5;
-  }
-
-  /* Ballon de basket (version optimisée) */
-  .basketball {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #FF6B35 0%, #E03A3E 100%);
-    border-radius: 50%;
-    box-shadow:
-      inset 0 0 8px rgba(0,0,0,0.2),
-      0 0 15px rgba(255,107,53,0.4);
-    bottom: 120px;
-    left: 30%;
-    z-index: -1;
-  }
-
-  /* Détails du ballon */
-  .basketball::before,
-  .basketball::after {
-    content: "";
-    position: absolute;
-    background: rgba(0,0,0,0.2);
-    border-radius: 1px;
-  }
-
-  .basketball::before {
-    width: 2px;
-    height: 40px;
-    left: 50%;
-    top: 0;
-    transform: translateX(-1px);
-  }
-
-  .basketball::after {
-    width: 40px;
-    height: 2px;
-    top: 50%;
-    left: 0;
-    transform: translateY(-1px);
-  }
-
-  /* Ombre dynamique */
-  .basketball-shadow {
-    position: absolute;
-    width: 40px;
-    height: 6px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 50%;
-    bottom: 115px;
-    left: 30%;
-    transform: scaleX(1.2);
-    opacity: 0.6;
-    z-index: -1;
-  }
-
-  /* Animations */
-  @keyframes bounce {
-    0% {
-      transform: translateY(0) scale(1);
-      bottom: 120px;
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.12) !important;
     }
-    25% {
-      transform: translateY(-120px) scale(0.95);
-    }
-    50% {
-      transform: translateY(0) scale(1.03);
-      bottom: 120px;
-    }
-    75% {
-      transform: translateY(-60px) scale(0.98);
-    }
-    100% {
-      transform: translateY(0) scale(1);
-      bottom: 120px;
-    }
-  }
 
-  @keyframes move {
-    0% { left: 30%; }
-    50% { left: 70%; }
-    100% { left: 30%; }
-  }
-
-  /* Application */
-  .basketball {
-    animation:
-      bounce 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      move 15s infinite linear;
-  }
-
-  .basketball-shadow {
-    animation:
-      bounce-shadow 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      move 15s infinite linear;
-  }
-
-  @keyframes bounce-shadow {
-    0% {
-      transform: scaleX(1.2);
-      opacity: 0.6;
+    .product-card:hover img {
+      transform: scale(1.05);
+      transition: transform 0.5s ease;
     }
-    25% {
-      transform: scaleX(0.8);
-      opacity: 0.3;
-    }
-    100% {
-      transform: scaleX(1.2);
-      opacity: 0.6;
-    }
-  }
 
-  /* Optimisation mobile */
-  @media (max-width: 768px) {
+    /* TERRAIN DE BASKET */
     .basketball-court {
-      opacity: 0.3; /* Plus discret sur mobile */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #2F4A40;
+      overflow: hidden;
+      pointer-events: none;
     }
+
+    .court-lines {
+      position: absolute;
+      width: 92%;
+      height: 90%;
+      left: 4%;
+      top: 5%;
+      background:
+        /* Ligne médiane */
+        linear-gradient(to right,
+          transparent 49.5%,
+          white 49.5%,
+          white 50.5%,
+          transparent 50.5%),
+
+        /* Lignes de fond */
+        repeating-linear-gradient(
+          to bottom,
+          transparent,
+          transparent 4%,
+          white 4%,
+          white 6%,
+          transparent 6%,
+          transparent 94%,
+          white 94%,
+          white 96%,
+          transparent 96%
+        );
+      background-size: 100% 2px, 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center, center;
+    }
+
+    .court-key-areas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .paint {
+      position: absolute;
+      width: 16%;
+      height: 18%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid white;
+      border-top: none;
+    }
+
+    .paint.left { left: 4%; bottom: 5%; }
+    .paint.right { right: 4%; bottom: 5%; }
+
+    .three-point-line {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 2px solid white;
+      border-radius: 50%;
+      border-bottom: none;
+      border-left: none;
+      border-right: none;
+      top: 50%;
+    }
+
+    .three-point-line.left {
+      left: 4%;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+
+    .three-point-line.right {
+      right: 4%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .center-circle {
+      position: absolute;
+      width: 8%;
+      height: 8%;
+      border: 2px solid white;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
     .basketball {
-      width: 30px;
-      height: 30px;
-      animation-duration: 3s; /* Plus rapide */
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #FF6B35 0%, #E03A3E 100%);
+      border-radius: 50%;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.2), 0 0 20px rgba(255,107,53,0.3);
+      bottom: 100px;
+      left: 30%;
+      z-index: -1;
     }
-  }
+
+    .basketball::before,
+    .basketball::after {
+      content: "";
+      position: absolute;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .basketball::before {
+      width: 1.5px;
+      height: 36px;
+      left: 50%;
+      top: 0;
+      transform: translateX(-0.75px);
+    }
+
+    .basketball::after {
+      width: 36px;
+      height: 1.5px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-0.75px);
+    }
+
+    .basketball-shadow {
+      position: absolute;
+      width: 36px;
+      height: 5px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 50%;
+      bottom: 96px;
+      left: 30%;
+      transform: scaleX(1.3);
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .basketball-court {
+        opacity: 0.4;
+      }
+
+      .basketball {
+        width: 28px;
+        height: 28px;
+        animation-duration: 3s;
+      }
+
+      .product-card:hover {
+        transform: none;
+      }
+
+      .product-card:hover img {
+        transform: scale(1.02);
+      }
+    }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
 
-  <!-- HEADER AMÉLIORÉ -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-soft transition-all">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="logoclub.png" class="w-10 h-10 sm:w-12 sm:h-12 rounded object-contain" onerror="this.src='https://via.placeholder.com/50/2F4A40/FFFFFF?text=SM'" />
-        <div>
-          <h1 class="text-lg font-extrabold">Saint Marc Basketball</h1>
-          <p class="text-xs text-gray-600 hidden sm:block">Boutique officielle</p>
-        </div>
+<body class="bg-gray-50">
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-primary text-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="logo.png" alt="Logo Saint Marc Basketball" class="h-10">
+        <span class="font-bold text-xl">Saint Marc Basketball</span>
       </div>
-      <nav class="hidden md:flex gap-6 text-sm font-medium">
-        <a href="#products" class="hover:text-accent transition-colors">Produits</a>
-        <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
-      </nav>
-      <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})"
-              class="bg-accent text-white px-3 sm:px-4 py-2 rounded-xl2 shadow-soft hover:bg-highlight transition-colors text-sm sm:text-base">
-        Commander
-      </button>
+      <div class="relative">
+        <button id="cartButton" class="relative p-2 rounded-full hover:bg-accent transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span id="cartItemCount" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- HERO AMÉLIORÉ -->
-  <section class="pt-28 pb-16 bg-gradient-to-br from-primary to-accent text-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 items-center">
-      <div class="hero-content fade delay-1">
-        <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Équipement officiel<br>du <span class="text-highlight">Foyer Laïque de Saint-Marc Basketball</span></h2>
-        <p class="text-white/90 mb-6 text-lg">Commandez vos maillots, vestes et accessoires du club en quelques clics. </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#products" class="px-5 py-3 rounded-xl2 bg-white text-primary font-semibold shadow-soft hover:bg-highlight/40 transition-all text-center">Voir les produits</a>
-          <a href="#order" class="px-5 py-3 rounded-xl2 bg-primary border border-white/40 text-white font-semibold hover:bg-primary/80 transition-all text-center">Commander maintenant</a>
-        </div>
+  <!-- Panier flottant -->
+  <div id="floatingCart" class="fixed top-20 right-4 w-72 bg-white rounded-xl shadow-card p-4 transform translate-y-2 opacity-0 invisible transition-all duration-300 z-40">
+    <h3 class="font-bold text-lg mb-3">Votre panier</h3>
+    <div id="cartList" class="max-h-64 overflow-y-auto mb-4"></div>
+    <div class="border-t pt-3">
+      <div class="flex justify-between font-bold">
+        <span>Total</span>
+        <span id="totalDisplay">0€</span>
       </div>
-      <div class="fade delay-2">
-        <div class="bg-white/20 backdrop-blur p-6 sm:p-8 rounded-xl2 shadow-card text-white">
-          <ul class="space-y-3 text-lg font-semibold">
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Produits 100% officiels</li>
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Tailles S → XXL disponibles</li>
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Livraison au club sous 7 jours</li>
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Paiement sécurisé</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUITS AMÉLIORÉS -->
-  <section id="products" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-    <h3 class="text-3xl font-bold mb-8 sm:mb-10 text-center fade delay-1">Nos <span class="text-accent">produits</span></h3>
-    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
-  </section>
-
-  <!-- PANIER VISIBLE -->
-  <div class="fixed bottom-4 right-4 z-40">
-    <div id="floatingCart" class="bg-white rounded-xl2 shadow-card p-4 w-64 sm:w-72 border border-gray-100 transform transition-all duration-300 translate-y-2 opacity-0 invisible">
-      <h4 class="font-bold text-lg mb-3 flex justify-between items-center">
-        Votre panier
-        <span id="cartItemCount" class="bg-accent text-white text-xs px-2 py-1 rounded-full">0</span>
-      </h4>
-      <div id="cartList" class="max-h-40 overflow-y-auto mb-3 text-sm">
-        <p class="text-gray-500">Aucun article</p>
-      </div>
-      <div class="font-bold text-right text-accent">
-        Total : <span id="total">0€</span>
-      </div>
+      <button class="w-full bg-primary text-white py-2 rounded-lg mt-3 hover:bg-opacity-90 transition-colors">
+        Voir le panier
+      </button>
     </div>
   </div>
 
-  <!-- FORMULAIRE DE COMMANDE AMÉLIORÉ -->
-  <section id="order" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-    <div class="bg-white rounded-xl2 shadow-card p-6 sm:p-10 fade delay-1">
-      <h3 class="text-3xl font-bold mb-6 text-center">Finaliser votre commande</h3>
-
-      <form id="orderForm" action="https://formsubmit.co/contact@saintmarcbasket.fr" method="POST" class="space-y-6">
-        <input type="hidden" name="_subject" value="Nouvelle commande Boutique Saint Marc">
-        <input type="hidden" name="_next" value="https://votre-utilisateur.github.io/merci.html">
-        <input type="hidden" name="_captcha" value="false">
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          <div>
-            <label for="lastName" class="block text-sm font-medium mb-1">Nom*</label>
-            <input type="text" id="lastName" name="lastName" required
-                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
-          </div>
-          <div>
-            <label for="firstName" class="block text-sm font-medium mb-1">Prénom*</label>
-            <input type="text" id="firstName" name="firstName" required
-                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
-          </div>
-          <div class="sm:col-span-2">
-            <label for="email" class="block text-sm font-medium mb-1">Email*</label>
-            <input type="email" id="email" name="email" required
-                   class="w-full px-4 py-2 border rounded-xl2 focus:ring-2 focus:ring-accent focus:border-transparent">
-          </div>
-          
-        </div>
-
-        <div class="border-t pt-6 mt-4">
-          <h4 class="font-bold mb-4">Récapitulatif de la commande</h4>
-          <div id="orderSummary" class="mb-4">
-            <p class="text-gray-500">Votre panier est vide</p>
-          </div>
-          <div class="font-bold text-right text-lg text-accent">
-            Total : <span id="orderTotal">0€</span>
-          </div>
-        </div>
-
-        <div class="text-center pt-4">
-          <button type="submit" class="w-full sm:w-auto bg-accent text-white px-8 py-3 rounded-xl2 shadow-soft hover:bg-highlight transition-colors font-semibold">
-            Valider la commande
-          </button>
-        </div>
-      </form>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-primary to-black py-16 text-white">
+    <div class="container mx-auto px-4 text-center fade">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Boutique Officielle</h1>
+      <p class="text-xl max-w-2xl mx-auto mb-8">Commandez vos équipements et récupérez-les au club</p>
+      <a href="#products" class="bg-accent hover:bg-opacity-90 text-primary font-bold py-3 px-6 rounded-full transition-colors">Voir les produits</a>
     </div>
   </section>
 
-  <!-- FOOTER AMÉLIORÉ -->
-  <footer id="contact" class="bg-primary text-white py-8 mt-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-        <div>
-          <h4 class="font-bold mb-4">Saint Marc Basketball</h4>
-          <p class="text-sm text-white/80">Foyer Laïque de Saint Marc<br>Brest, France</p>
+  <!-- Produits -->
+  <section id="products" class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-12 fade">Nos Produits</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Maillot Domicile -->
+      <div class="product-card fade delay-1">
+        <div class="relative">
+          <img src="maillot-dom.png" alt="Maillot Domicile" class="w-full h-64 object-contain rounded-t-xl">
+          <span class="badge">NOUVEAU</span>
         </div>
-        <div>
-          <h4 class="font-bold mb-4">Contact</h4>
-          <p class="text-sm"><a href="mailto:leboudec12@gmail.com" class="hover:text-highlight transition-colors">contact@saintmarcbasket.fr</a></p>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Suivez-nous</h4>
-          <div class="flex gap-4">
-            <a href="#" class="hover:text-highlight transition-colors">Facebook</a>
-            <a href="#" class="hover:text-highlight transition-colors">Instagram</a>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Maillot Domicile 2023</h3>
+          <p class="text-gray-600 mb-3">Maillot officiel avec technologie respirante</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-xl">59,99€</span>
+            <button onclick="addToCart('Maillot Domicile', 59.99, 'maillot-dom.png')" class="product-card-button bg-primary hover:bg-opacity-90 text-white py-2 px-4 rounded-lg transition-colors">Ajouter</button>
           </div>
         </div>
       </div>
-      <div class="border-t border-white/20 pt-6 text-center text-sm text-white/60">
-        © 2025 Foyer Laïque de Saint Marc Basketball. Tous droits réservés.
+
+      <!-- Surmaillot -->
+      <div class="product-card fade delay-2">
+        <div class="relative">
+          <img src="surmaillot.png" alt="Surmaillot" class="w-full h-64 object-contain rounded-t-xl">
+          <span class="badge">POPULAIRE</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Surmaillot Chauffant</h3>
+          <p class="text-gray-600 mb-3">Idéal pour l'échauffement</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-xl">39,99€</span>
+            <button onclick="addToCart('Surmaillot Chauffant', 39.99, 'surmaillot.png')" class="product-card-button bg-primary hover:bg-opacity-90 text-white py-2 px-4 rounded-lg transition-colors">Ajouter</button>
+          </div>
+        </div>
       </div>
+
+      <!-- Jogging -->
+      <div class="product-card fade delay-3">
+        <div class="relative">
+          <img src="jogging.png" alt="Jogging" class="w-full h-64 object-contain rounded-t-xl">
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Jogging Club</h3>
+          <p class="text-gray-600 mb-3">Confortable et stylé</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-xl">69,99€</span>
+            <button onclick="addToCart('Jogging Club', 69.99, 'jogging.png')" class="product-card-button bg-primary hover:bg-opacity-90 text-white py-2 px-4 rounded-lg transition-colors">Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulaire de commande -->
+  <section class="container mx-auto px-4 py-12 bg-white rounded-xl shadow-soft">
+    <h2 class="text-3xl font-bold text-center mb-8 fade">Finaliser votre commande</h2>
+
+    <form id="orderForm" action="https://formsubmit.co/votre-email@example.com" method="POST" class="max-w-3xl mx-auto space-y-6">
+      <input type="hidden" name="_subject" value="Nouvelle commande Saint Marc Basketball">
+      <input type="hidden" name="_next" value="https://votre-utilisateur.github.io/merci.html">
+      <input type="hidden" name="_captcha" value="false">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <div>
+            <label for="name" class="block text-sm font-medium mb-1">Nom et prénom</label>
+            <input type="text" id="name" name="Nom" required class="w-full px-3 py-2 border rounded-lg">
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium mb-1">Email</label>
+            <input type="email" id="email" name="Email" required class="w-full px-3 py-2 border rounded-lg">
+          </div>
+
+          <div>
+            <label for="phone" class="block text-sm font-medium mb-1">Téléphone</label>
+            <input type="tel" id="phone" name="Téléphone" class="w-full px-3 py-2 border rounded-lg">
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-bold mb-3">Récapitulatif</h3>
+          <div id="orderSummary" class="border rounded-lg p-3 mb-4 min-h-[120px]"></div>
+          <div class="flex justify-between font-bold text-lg">
+            <span>Total</span>
+            <span id="orderTotal">0€</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="size" class="block text-sm font-medium mb-1">Taille</label>
+        <select id="size" name="Taille" required class="w-full px-3 py-2 border rounded-lg">
+          <option value="">Sélectionnez une taille</option>
+          <option value="XS">XS</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="notes" class="block text-sm font-medium mb-1">Notes (optionnel)</label>
+        <textarea id="notes" name="Notes" rows="3" class="w-full px-3 py-2 border rounded-lg"></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition-colors text-lg">
+          Commander
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2023 Saint Marc Basketball. Tous droits réservés.</p>
+      <p class="text-sm mt-2">Livraison uniquement au club. Contact: contact@saintmarcbasket.fr</p>
     </div>
   </footer>
 
-  <!-- SCRIPT COMPLET AMÉLIORÉ -->
+  <!-- Terrain de basket -->
+  <div class="basketball-court">
+    <div class="court-lines"></div>
+    <div class="court-key-areas">
+      <div class="paint left"></div>
+      <div class="paint right"></div>
+      <div class="three-point-line left"></div>
+      <div class="three-point-line right"></div>
+    </div>
+    <div class="center-circle"></div>
+    <div class="basketball animate-bounce-ball"></div>
+    <div class="basketball-shadow"></div>
+  </div>
+
   <script>
-    // === DONNÉES PRODUITS ===
-    const products = [
-      {
-        id: 1,
-        name: "Surmaillot",
-        price: 25,
-        img: "surmaillot.png",
-        sizes: ["S", "M", "L", "XL","XXL"],
-        new: true
-      },
-      {
-        id: 2,
-        name: "Jogging",
-        price: 35,
-        img: "jogging.png",
-        sizes: ["S", "M", "L", "XL","XXL"]
-      },
-      {
-        id: 3,
-        name: "Veste Zippée",
-        price: 45,
-        img: "veste.png",
-        sizes: ["S", "M", "L", "XL","XXL"]
-      },
-      {
-        id: 4,
-        name: "Sweat à Capuche",
-        price: 40,
-        img: "sweat.png",
-        sizes: ["S", "M", "L", "XL","XXL"]
-      }
-    ];
+    // Gestion du panier
+    const cart = JSON.parse(localStorage.getItem('smbCart')) || [];
+    const cartItemCount = document.getElementById('cartItemCount');
+    const cartList = document.getElementById('cartList');
+    const floatingCart = document.getElementById('floatingCart');
+    const totalDisplay = document.getElementById('totalDisplay');
+    const orderTotal = document.getElementById('orderTotal');
+    const orderSummary = document.getElementById('orderSummary');
 
-    // === ÉLÉMENTS DOM ===
-    const productGrid = document.getElementById("productGrid");
-    const cartList = document.getElementById("cartList");
-    const floatingCart = document.getElementById("floatingCart");
-    const cartItemCount = document.getElementById("cartItemCount");
-    const totalDisplay = document.getElementById("total");
-    const orderSummary = document.getElementById("orderSummary");
-    const orderTotal = document.getElementById("orderTotal");
-
-    // === PANIER (avec localStorage) ===
-    let cart = JSON.parse(localStorage.getItem('smbCart')) || [];
-
-    // === AFFICHAGE DES PRODUITS ===
-    products.forEach(product => {
-      const card = document.createElement("div");
-      card.className = "product-card bg-white rounded-xl2 shadow-card p-4 fade delay-2 relative";
-
-      card.innerHTML = `
-        ${product.new ? '<span class="badge">Nouveau</span>' : ''}
-        <img src="${product.img}" loading="lazy" class="w-full h-48 sm:h-56 object-contain mb-4"
-             onerror="this.src='https://via.placeholder.com/300/2F4A40/FFFFFF?text=${encodeURIComponent(product.name)}'">
-        <h4 class="font-semibold text-lg mb-1">${product.name}</h4>
-        <p class="text-primary font-bold mb-3">${product.price}€</p>
-
-        <div class="flex items-center gap-2 mb-3">
-          <label class="text-sm">Quantité :</label>
-          <input type="number" id="quantity-${product.id}" min="1" value="1"
-                 class="w-16 border rounded-xl2 px-2 py-1 text-center">
-        </div>
-
-        <label class="text-sm block mb-2">Taille :</label>
-        <select id="size-${product.id}" class="border rounded-xl2 px-3 py-2 w-full mb-4">
-          ${product.sizes.map(s => `<option value="${s}">${s}</option>`).join('')}
-        </select>
-
-        <button onclick="addToCart(${product.id})"
-                class="w-full bg-accent text-white py-2 rounded-xl2 hover:bg-highlight transition-colors product-card-button">
-          Ajouter au panier
-        </button>
-      `;
-
-      productGrid.appendChild(card);
-    });
-
-    // === GESTION DU PANIER ===
-    function addToCart(id) {
-      const product = products.find(p => p.id === id);
-      const size = document.getElementById(`size-${id}`).value;
-      const quantity = parseInt(document.getElementById(`quantity-${id}`).value);
-
-      // Vérifier si le produit existe déjà dans le panier avec la même taille
-      const existingItem = cart.find(item => item.id === id && item.size === size);
+    function addToCart(name, price, image, size = "M") {
+      const existingItem = cart.find(item => item.name === name && item.size === size);
 
       if (existingItem) {
-        existingItem.quantity += quantity;
+        existingItem.quantity += 1;
       } else {
-        cart.push({ ...product, size, quantity });
+        cart.push({ name, price, image, size, quantity: 1 });
       }
 
       updateCart();
 
       // Animation du bouton
+      const event = window.event;
       const button = event.target;
       button.textContent = "Ajouté !";
       button.classList.add("bg-highlight", "animate-pulse-once");
       setTimeout(() => {
-        button.textContent = "Ajouter au panier";
+        button.textContent = "Ajouter";
         button.classList.remove("bg-highlight");
       }, 1500);
 
@@ -540,15 +508,12 @@
     }
 
     function updateCart() {
-      // Sauvegarder dans localStorage
       localStorage.setItem('smbCart', JSON.stringify(cart));
 
-      // Mettre à jour le compteur
       const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
       cartItemCount.textContent = totalItems;
       cartItemCount.classList.toggle('hidden', totalItems === 0);
 
-      // Mettre à jour la liste du panier
       if (cart.length === 0) {
         cartList.innerHTML = '<p class="text-gray-500 text-sm">Aucun article</p>';
         orderSummary.innerHTML = '<p class="text-gray-500">Votre panier est vide</p>';
@@ -561,7 +526,6 @@
         return;
       }
 
-      // Liste dans le panier flottant
       cartList.innerHTML = cart.map((item, index) => `
         <div class="flex justify-between items-start py-2 border-b border-gray-100 last:border-0">
           <div>
@@ -569,27 +533,25 @@
             <p class="text-sm text-gray-500">${item.size} × ${item.quantity}</p>
           </div>
           <div class="text-right">
-            <p class="font-medium">${item.price * item.quantity}€</p>
+            <p class="font-medium">${(item.price * item.quantity).toFixed(2)}€</p>
             <button onclick="removeFromCart(${index})" class="text-xs text-red-500 hover:text-red-700">×</button>
           </div>
         </div>
       `).join('');
 
-      // Récapitulatif dans le formulaire
       orderSummary.innerHTML = cart.map(item => `
         <div class="flex justify-between py-1">
           <span>${item.name} (${item.size}) × ${item.quantity}</span>
-          <span>${item.price * item.quantity}€</span>
+          <span>${(item.price * item.quantity).toFixed(2)}€</span>
         </div>
       `).join('');
 
-      // Calcul du total
       const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      totalDisplay.textContent = `${total}€`;
-      orderTotal.textContent = `${total}€`;
+      totalDisplay.textContent = `${total.toFixed(2)}€`;
+      orderTotal.textContent = `${total.toFixed(2)}€`;
     }
 
-    // === VALIDATION DU FORMULAIRE ===
+    // Validation du formulaire
     document.getElementById("orderForm").addEventListener("submit", function(e) {
       if (cart.length === 0) {
         e.preventDefault();
@@ -598,7 +560,7 @@
       }
     });
 
-    // === ANIMATIONS AU SCROLL ===
+    // Animations au scroll
     const fadeElements = document.querySelectorAll('.fade');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -610,23 +572,8 @@
 
     fadeElements.forEach(el => observer.observe(el));
 
-    // === INITIALISATION ===
+    // Initialisation
     updateCart();
-
-    // === GESTION DU PANIER FLOTTANT ===
-    document.addEventListener('click', function(e) {
-      if (!floatingCart.contains(e.target) && !e.target.closest('.product-card-button')) {
-        // Ne rien faire, le panier reste visible
-      }
-    });
   </script>
-
-<!-- Terrain de basket + animation -->
-<div class="basketball-court">
-  <div class="court-lines"></div>
-  <div class="center-circle"></div>
-  <div class="basketball"></div>
-  <div class="basketball-shadow"></div>
-</div>
 </body>
 </html>
