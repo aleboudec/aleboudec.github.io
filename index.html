@@ -90,6 +90,117 @@
         text-align: center;
       }
     }
+
+  /* Panneau de basket */
+  .basket-hoop {
+    position: fixed;
+    width: 120px;
+    height: 60px;
+    background: transparent;
+    border: 4px solid #E03A3E;
+    border-top: none;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    z-index: -1;
+    bottom: 50px;
+    right: 50px;
+    transform: rotate(15deg);
+  }
+
+  /* Filet du panier */
+  .basket-hoop::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    background: repeating-linear-gradient(
+      90deg,
+      #E03A3E,
+      #E03A3E 2px,
+      transparent 2px,
+      transparent 8px
+    );
+    bottom: 100%;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+
+  /* Arrière-plan du panier */
+  .basket-backboard {
+    position: fixed;
+    width: 4px;
+    height: 100px;
+    background: #5A5A5A;
+    z-index: -2;
+    bottom: 110px;
+    right: 90px;
+    transform: rotate(10deg);
+  }
+
+  /* Ballon pour le panier */
+  .basket-ball {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    background: #FF6B35;
+    border-radius: 50%;
+    z-index: -1;
+    bottom: 50px;
+    left: 10%;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+  }
+
+  .basket-ball::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background: #000;
+    left: 50%;
+    transform: translateX(-1px);
+    border-radius: 1px;
+  }
+
+  .basket-ball::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: #000;
+    top: 50%;
+    transform: translateY(-1px);
+    border-radius: 1px;
+  }
+
+  /* Animation du ballon vers le panier */
+  @keyframes shoot {
+    0% {
+      bottom: 50px;
+      left: 10%;
+      transform: rotate(0deg);
+    }
+    25% {
+      bottom: 200px;
+      left: 30%;
+    }
+    50% {
+      bottom: 100px;
+      left: 70%;
+      transform: rotate(360deg);
+    }
+    75% {
+      bottom: 80px;
+      left: 85%;
+    }
+    100% {
+      bottom: 50px;
+      left: 85%;
+      transform: rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  .basket-ball {
+    animation: shoot 3s infinite ease-in;
+  }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -438,5 +549,10 @@
       }
     });
   </script>
+
+  <!-- Panier de basket animé -->
+<div class="basket-backboard"></div>
+<div class="basket-hoop"></div>
+<div class="basket-ball"></div>
 </body>
 </html>
