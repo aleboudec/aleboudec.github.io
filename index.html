@@ -91,115 +91,191 @@
       }
     }
 
-  /* Panneau de basket */
-  .basket-hoop {
+ /* Conteneur du terrain (fond complet) */
+  .basketball-court {
     position: fixed;
-    width: 120px;
-    height: 60px;
-    background: transparent;
-    border: 4px solid #E03A3E;
-    border-top: none;
-    border-radius: 0 0 50% 50% / 0 0 100% 100%;
-    z-index: -1;
-    bottom: 50px;
-    right: 50px;
-    transform: rotate(15deg);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: linear-gradient(to bottom, #1a4a3a 0%, #2F4A40 100%);
+    overflow: hidden;
+    pointer-events: none;
   }
 
-  /* Filet du panier */
-  .basket-hoop::before {
-    content: "";
+  /* Lignes du terrain (version simplifiée et élégante) */
+  .court-lines {
     position: absolute;
     width: 100%;
-    height: 30px;
-    background: repeating-linear-gradient(
-      90deg,
-      #E03A3E,
-      #E03A3E 2px,
-      transparent 2px,
-      transparent 8px
-    );
-    bottom: 100%;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    height: 100%;
+    background:
+      /* Ligne centrale */
+      linear-gradient(to right,
+        transparent 49.5%,
+        rgba(255,255,255,0.8) 49.5%,
+        rgba(255,255,255,0.8) 50.5%,
+        transparent 50.5%),
+      /* Raquette (zone restrictive) */
+      repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 45%,
+        rgba(255,255,255,0.3) 45%,
+        rgba(255,255,255,0.3) 55%,
+        transparent 55%,
+        transparent 100%
+      ),
+      /* Ligne de fond */
+      repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 45%,
+        rgba(255,255,255,0.5) 45%,
+        rgba(255,255,255,0.5) 55%,
+        transparent 55%,
+        transparent 100%
+      );
+    background-size:
+      100% 4px, /* Ligne centrale */
+      100% 20%, /* Raquette */
+      100% 100%; /* Ligne de fond */
+    opacity: 0.6;
   }
 
-  /* Arrière-plan du panier */
-  .basket-backboard {
-    position: fixed;
-    width: 4px;
-    height: 100px;
-    background: #5A5A5A;
-    z-index: -2;
-    bottom: 110px;
-    right: 90px;
-    transform: rotate(10deg);
-  }
-
-  /* Ballon pour le panier */
-  .basket-ball {
-    position: fixed;
-    width: 30px;
-    height: 30px;
-    background: #FF6B35;
-    border-radius: 50%;
-    z-index: -1;
-    bottom: 50px;
-    left: 10%;
-    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
-  }
-
-  .basket-ball::before {
-    content: "";
+  /* Cercle central */
+  .center-circle {
     position: absolute;
-    width: 2px;
-    height: 30px;
-    background: #000;
-    left: 50%;
-    transform: translateX(-1px);
-    border-radius: 1px;
-  }
-
-  .basket-ball::after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 2px;
-    background: #000;
     top: 50%;
-    transform: translateY(-1px);
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(255,255,255,0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* Ballon de basket (version optimisée) */
+  .basketball {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #FF6B35 0%, #E03A3E 100%);
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 8px rgba(0,0,0,0.2),
+      0 0 15px rgba(255,107,53,0.4);
+    bottom: 120px;
+    left: 30%;
+    z-index: -1;
+  }
+
+  /* Détails du ballon */
+  .basketball::before,
+  .basketball::after {
+    content: "";
+    position: absolute;
+    background: rgba(0,0,0,0.2);
     border-radius: 1px;
   }
 
-  /* Animation du ballon vers le panier */
-  @keyframes shoot {
+  .basketball::before {
+    width: 2px;
+    height: 40px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-1px);
+  }
+
+  .basketball::after {
+    width: 40px;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-1px);
+  }
+
+  /* Ombre dynamique */
+  .basketball-shadow {
+    position: absolute;
+    width: 40px;
+    height: 6px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 50%;
+    bottom: 115px;
+    left: 30%;
+    transform: scaleX(1.2);
+    opacity: 0.6;
+    z-index: -1;
+  }
+
+  /* Animations */
+  @keyframes bounce {
     0% {
-      bottom: 50px;
-      left: 10%;
-      transform: rotate(0deg);
+      transform: translateY(0) scale(1);
+      bottom: 120px;
     }
     25% {
-      bottom: 200px;
-      left: 30%;
+      transform: translateY(-120px) scale(0.95);
     }
     50% {
-      bottom: 100px;
-      left: 70%;
-      transform: rotate(360deg);
+      transform: translateY(0) scale(1.03);
+      bottom: 120px;
     }
     75% {
-      bottom: 80px;
-      left: 85%;
+      transform: translateY(-60px) scale(0.98);
     }
     100% {
-      bottom: 50px;
-      left: 85%;
-      transform: rotate(720deg);
-      opacity: 0;
+      transform: translateY(0) scale(1);
+      bottom: 120px;
     }
   }
 
-  .basket-ball {
-    animation: shoot 3s infinite ease-in;
+  @keyframes move {
+    0% { left: 30%; }
+    50% { left: 70%; }
+    100% { left: 30%; }
+  }
+
+  /* Application */
+  .basketball {
+    animation:
+      bounce 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      move 15s infinite linear;
+  }
+
+  .basketball-shadow {
+    animation:
+      bounce-shadow 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      move 15s infinite linear;
+  }
+
+  @keyframes bounce-shadow {
+    0% {
+      transform: scaleX(1.2);
+      opacity: 0.6;
+    }
+    25% {
+      transform: scaleX(0.8);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scaleX(1.2);
+      opacity: 0.6;
+    }
+  }
+
+  /* Optimisation mobile */
+  @media (max-width: 768px) {
+    .basketball-court {
+      opacity: 0.3; /* Plus discret sur mobile */
+    }
+    .basketball {
+      width: 30px;
+      height: 30px;
+      animation-duration: 3s; /* Plus rapide */
+    }
   }
   </style>
 </head>
@@ -550,9 +626,12 @@
     });
   </script>
 
-  <!-- Panier de basket animé -->
-<div class="basket-backboard"></div>
-<div class="basket-hoop"></div>
-<div class="basket-ball"></div>
+<!-- Terrain de basket + animation -->
+<div class="basketball-court">
+  <div class="court-lines"></div>
+  <div class="center-circle"></div>
+  <div class="basketball"></div>
+  <div class="basketball-shadow"></div>
+</div>
 </body>
 </html>
