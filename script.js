@@ -2,6 +2,22 @@ const productCards = Array.from(document.querySelectorAll('.product-card'));
 const orderSummaryEl = document.getElementById('order-summary');
 const hiddenCommande = document.getElementById('hidden-commande');
 
+function buildCommandeText() {
+  let text = "🛒 NOUVELLE COMMANDE – SAINT MARC BASKET\n\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    const subtotal = item.price * item.quantity;
+    total += subtotal;
+    text += `• ${item.name} (Taille : ${item.size}) × ${item.quantity} = ${subtotal}€\n`;
+  });
+
+  text += `\n💰 TOTAL : ${total}€`;
+  text += `\n📦 Retrait : Au club`;
+
+  return text;
+}
+
 function buildOrder() {
   let text = "🛒 NOUVELLE COMMANDE – SAINT MARC BASKET\n\n";
   let total = 0;
