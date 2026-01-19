@@ -592,12 +592,15 @@
 
     // === VALIDATION DU FORMULAIRE ===
     document.getElementById("orderForm").addEventListener("submit", function(e) {
-      if (cart.length === 0) {
-        e.preventDefault();
-        alert("Votre panier est vide ! Ajoutez des articles avant de commander.");
-        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-      }
-    });
+  if (cart.length === 0) {
+    e.preventDefault();
+    alert("Votre panier est vide ! Ajoutez des articles avant de commander.");
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  document.getElementById("hiddenCommande").value = buildCommandeText();
+});
 
     // === ANIMATIONS AU SCROLL ===
     const fadeElements = document.querySelectorAll('.fade');
