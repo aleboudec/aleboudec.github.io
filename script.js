@@ -1,6 +1,6 @@
 const productCards = Array.from(document.querySelectorAll('.product-card'));
 const orderSummaryEl = document.getElementById('order-summary');
-const hiddenCommande = document.getElementById('hidden-commande');
+const hiddenCommande = document.getElementById('hiddenCommande');
 
 function buildCommandeText() {
   let text = "🛒 NOUVELLE COMMANDE – SAINT MARC BASKET\n\n";
