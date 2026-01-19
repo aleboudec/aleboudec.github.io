@@ -1,7 +1,95 @@
-const productCards = Array.from(document.querySelectorAll('.product-card'));
-const orderSummaryEl = document.getElementById('order-summary');
-const hiddenCommande = document.getElementById('hiddenCommande');
+/*************************
+ * 🛒 DONNÉES PANIER
+ *************************/
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+/*************************
+ * 🧠 OUTILS
+ *************************/
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+/*************************
+ * ➕ AJOUT AU PANIER
+ *************************/
+function addToCart(name, size, price) {
+  const existingItem = cart.find(
+    item => item.name === name && item.size === size
+  );
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      name,
+      size,
+      price,
+      quantity: 1
+    });
+  }
+
+  saveCart();
+  renderCart();
+}
+
+/*************************
+ * ❌ SUPPRESSION ARTICLE
+ *************************/
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  saveCart();
+  renderCart();
+}
+
+/*************************
+ * 🎨 AFFICHAGE PANIER
+ *************************/
+function renderCart() {
+  const cartEl = document.getElementById("cart");
+  const totalDisplay = document.getElementById("totalDisplay");
+
+  if (cart.length === 0) {
+    cartEl.innerHTML = `<p class="text-gray-500">Panier vide</p>`;
+    totalDisplay.textContent = "0€";
+    return;
+  }
+
+  let total = 0;
+
+  cartEl.innerHTML = cart
+    .map((item, index) => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+
+      return `
+        <div class="flex justify-between items-center py-2 border-b">
+          <div>
+            <p class="font-medium">${item.name}</p>
+            <p class="text-sm text-gray-500">
+              Taille ${item.size} × ${item.quantity}
+            </p>
+          </div>
+          <div class="text-right">
+            <p class="font-bold">${subtotal}€</p>
+            <button
+              onclick="removeFromCart(${index})"
+              class="text-xs text-red-600 hover:underline"
+            >
+              Supprimer
+            </button>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  totalDisplay.textContent = `${total}€`;
+}
+
+/*************************
+ * ✉️ TEXTE COMMANDE (EMAIL)
+ *************************/
 function buildCommandeText() {
   let text = "🛒 NOUVELLE COMMANDE – SAINT MARC BASKET\n\n";
   let total = 0;
@@ -9,7 +97,7 @@ function buildCommandeText() {
   cart.forEach(item => {
     const subtotal = item.price * item.quantity;
     total += subtotal;
-    text += `• ${item.name} (Taille : ${item.size}) × ${item.quantity} = ${subtotal}€\n`;
+    text += `• ${item.name} (${item.size}) × ${item.quantity} = ${subtotal}€\n`;
   });
 
   text += `\n💰 TOTAL : ${total}€`;
@@ -18,58 +106,21 @@ function buildCommandeText() {
   return text;
 }
 
-function buildOrder() {
-  let text = "🛒 NOUVELLE COMMANDE – SAINT MARC BASKET\n\n";
-  let total = 0;
-  let hasItem = false;
-
-  productCards.forEach(card => {
-    const name = card.dataset.name;
-    const price = parseFloat(card.dataset.price);
-    const size = card.querySelector('.size').value;
-    const qty = parseInt(card.querySelector('.qty').value);
-
-    if (qty > 0) {
-      hasItem = true;
-      const subtotal = price * qty;
-      total += subtotal;
-      text += `• ${name} (Taille : ${size}) × ${qty} = ${subtotal.toFixed(2)} €\n`;
-    }
-  });
-
-  if (!hasItem) {
-    orderSummaryEl.innerHTML = "<em>Aucun article sélectionné.</em>";
-    hiddenCommande.value = "";
+/*************************
+ * ✅ VALIDATION FORMULAIRE
+ *************************/
+document.getElementById("orderForm").addEventListener("submit", function (e) {
+  if (cart.length === 0) {
+    e.preventDefault();
+    alert("🛒 Ajoute au moins un produit avant de commander !");
+    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
     return;
   }
 
-  text += `\n💰 TOTAL : ${total.toFixed(2)} €`;
-  text += `\n📦 Retrait : Au club`;
-
-  orderSummaryEl.innerHTML = `<pre>${text}</pre>`;
-  hiddenCommande.value = text;
-}
-
-// Mise à jour auto
-productCards.forEach(card => {
-  card.querySelector('.size').addEventListener('change', buildOrder);
-  card.querySelector('.qty').addEventListener('change', buildOrder);
+  document.getElementById("hiddenCommande").value = buildCommandeText();
 });
 
-buildOrder();
-
-// ✅ Validation formulaire
-function prepareAndSend(e) {
-  const hasItem = productCards.some(
-    c => parseInt(c.querySelector('.qty').value) > 0
-  );
-
-  if (!hasItem) {
-    e.preventDefault();
-    alert("🛒 Ajoute au moins un produit avant de commander !");
-    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-    return false;
-  }
-
-  return true;
-}
+/*************************
+ * 🚀 INITIALISATION
+ *************************/
+renderCart();
