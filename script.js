@@ -118,6 +118,19 @@ function clearCart() {
   renderCart();
 }
 
+const btn = document.getElementById("clearCartBtn");
+
+console.log("BTN =", btn);
+
+if (btn) {
+  btn.addEventListener("click", function () {
+    alert("🧨 CLIC DÉTECTÉ");
+    console.log("CLIC OK");
+  });
+} else {
+  console.log("❌ bouton introuvable");
+}
+
 /*************************
  * ✅ VALIDATION FORMULAIRE
  *************************/
