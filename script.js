@@ -110,6 +110,7 @@ function buildCommandeText() {
  * ✅ VIDER LE PANIER
  *************************/
 function clearCart() {
+  console.log("🧹 clearCart appelée");
   if (!confirm("Vider complètement le panier ?")) return;
 
   cart = [];
