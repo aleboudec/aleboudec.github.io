@@ -107,6 +107,17 @@ function buildCommandeText() {
 }
 
 /*************************
+ * ✅ VIDER LE PANIER
+ *************************/
+function clearCart() {
+  if (!confirm("Vider complètement le panier ?")) return;
+
+  cart = [];
+  saveCart();
+  renderCart();
+}
+
+/*************************
  * ✅ VALIDATION FORMULAIRE
  *************************/
 document.getElementById("orderForm").addEventListener("submit", function (e) {
@@ -119,6 +130,8 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
 
   document.getElementById("hiddenCommande").value = buildCommandeText();
 });
+
+document.getElementById("clearCartBtn").addEventListener("click", clearCart);
 
 /*************************
  * 🚀 INITIALISATION
