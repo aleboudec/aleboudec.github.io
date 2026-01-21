@@ -1,320 +1,313 @@
-:root{
-  --vert-fonce:#1f3d2b;
-  --taupe:#b8a89f;
-  --taupe-clair:#e8e1dc;
-  --blanc:#ffffff;
+/* ===== VARIABLES GLOBALES ===== */
+:root {
+  --vert-fonce: #1f3d2b;
+  --taupe: #b8a89f;
+  --taupe-clair: #e8e1dc;
+  --blanc: #ffffff;
+  --tw-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1); /* Ajout pour le hover des cartes */
 }
 
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:var(--taupe-clair);
-  color:var(--vert-fonce);
-}
-
-.site-header{
-  background:var(--vert-fonce);
-  color:white;
-  padding:1rem;
-}
-
-.header-inner{
-  display:flex;
-  gap:1rem;
-  align-items:center;
-}
-
-.logo{
-  width:100px;
-  height:90px;
-  border-radius:8px;
-  background:white;
-  border:none;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:1rem;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:1rem;
-}
-
-.product-card{
-  background:white;
-  padding:1rem;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-.product-image{
-  width:100%;
-  height:200px;
-  border-radius:8px;
-  background-size:cover;
-  background-repeat:no-repeat;
-  margin-bottom:1rem;
-}
-
-/* Découpe visuelle 4 produits */
-.top-left     { background-image:url("sweat.png"); }
-.top-right    { background-image:url("surmaillot.png"); }
-.bottom-left  { background-image:url("jogging.png"); }
-.bottom-right { background-image:url("veste.png"); }
-
-.product-title{
-  margin:0 0 0.5rem 0;
-  font-size:1.2rem;
-}
-
-.product-meta{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1rem;
-}
-
-.btn-primary{
-  width:100%;
-  padding:1rem;
-  background:var(--vert-fonce);
-  color:white;
-  border:none;
-  border-radius:8px;
-  margin-top:1rem;
-}
-
-.order-summary{
-  margin-top:1rem;
-  background:#eee;
-  padding:1rem;
-  border-radius:8px;
-}
-
+/* ===== RESET & BASE ===== */
 body {
-      font-family: 'Inter', system-ui;
-      padding-top: 80px;
-    }
-    .fade {
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out forwards;
-    }
-    .fade.delay-1 { animation-delay: 0.1s; }
-    .fade.delay-2 { animation-delay: 0.2s; }
-    .fade.delay-3 { animation-delay: 0.3s; }
-    .product-card {
-      transition: all 0.3s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--tw-shadow-hover) !important;
-    }
-    .badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: #5EC19E;
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: bold;
-    }
-    @media (max-width: 768px) {
-      header {
-        padding: 0.75rem 1rem;
-      }
-      .hero-content {
-        text-align: center;
-      }
-    }
+  margin: 0;
+  font-family: 'Inter', system-ui, Arial, sans-serif; /* Priorité à Inter, fallback sur Arial */
+  background: var(--taupe-clair);
+  color: var(--vert-fonce);
+  padding-top: 80px; /* Déplacé ici (évite la duplication) */
+}
 
- /* Conteneur du terrain (fond complet) */
+/* ===== EFFETS D'ANIMATION ===== */
+.fade {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+.fade.delay-1 { animation-delay: 0.1s; }
+.fade.delay-2 { animation-delay: 0.2s; }
+.fade.delay-3 { animation-delay: 0.3s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== COMPOSANTS REUTILISABLES ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 1rem;
+  background: var(--vert-fonce);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: background 0.2s; /* Effet de survol */
+}
+
+.btn-primary:hover {
+  background: #1a3324; /* Vert foncé plus sombre */
+}
+
+.badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #5EC19E;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* ===== EN-TÊTE ===== */
+.site-header {
+  background: var(--vert-fonce);
+  color: white;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 100px;
+  height: 90px;
+  border-radius: 8px;
+  background: white;
+  border: none;
+}
+
+/* ===== GRILLE DE PRODUITS ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.product-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative; /* Pour le badge */
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--tw-shadow-hover);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 1rem;
+}
+
+/* Images des produits (à remplacer par tes URLs réelles) */
+.top-left     { background-image: url("sweat.png"); }
+.top-right    { background-image: url("surmaillot.png"); }
+.bottom-left  { background-image: url("jogging.png"); }
+.bottom-right { background-image: url("veste.png"); }
+
+.product-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.product-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ===== TERRAIN DE BASKET (FOND) ===== */
+.basketball-court {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: linear-gradient(to bottom, #1a4a3a 0%, #2F4A40 100%);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Lignes du terrain */
+.court-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+    /* Ligne centrale */
+    linear-gradient(to right,
+      transparent 49.5%,
+      rgba(255,255,255,0.8) 49.5%,
+      rgba(255,255,255,0.8) 50.5%,
+      transparent 50.5%),
+    /* Raquette */
+    repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 45%,
+      rgba(255,255,255,0.3) 45%,
+      rgba(255,255,255,0.3) 55%,
+      transparent 55%,
+      transparent 100%
+    ),
+    /* Ligne de fond */
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 45%,
+      rgba(255,255,255,0.5) 45%,
+      rgba(255,255,255,0.5) 55%,
+      transparent 55%,
+      transparent 100%
+    );
+  background-size:
+    100% 4px,
+    100% 20%,
+    100% 100%;
+  opacity: 0.6;
+}
+
+/* Cercle central */
+.center-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+}
+
+/* Ballon de basket */
+.basketball {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #FF6B35 0%, #E03A3E 100%);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.2),
+    0 0 15px rgba(255,107,53,0.4);
+  bottom: 120px;
+  left: 30%;
+  z-index: -1;
+}
+
+/* Détails du ballon */
+.basketball::before,
+.basketball::after {
+  content: "";
+  position: absolute;
+  background: rgba(0,0,0,0.2);
+  border-radius: 1px;
+}
+
+.basketball::before {
+  width: 2px;
+  height: 40px;
+  left: 50%;
+  top: 0;
+  transform: translateX(-1px);
+}
+
+.basketball::after {
+  width: 40px;
+  height: 2px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-1px);
+}
+
+/* Ombre du ballon */
+.basketball-shadow {
+  position: absolute;
+  width: 40px;
+  height: 6px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 50%;
+  bottom: 115px;
+  left: 30%;
+  transform: scaleX(1.2);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+/* Animations du ballon */
+@keyframes bounce {
+  0% { transform: translateY(0) scale(1); bottom: 120px; }
+  25% { transform: translateY(-120px) scale(0.95); }
+  50% { transform: translateY(0) scale(1.03); bottom: 120px; }
+  75% { transform: translateY(-60px) scale(0.98); }
+  100% { transform: translateY(0) scale(1); bottom: 120px; }
+}
+
+@keyframes move {
+  0% { left: 30%; }
+  50% { left: 70%; }
+  100% { left: 30%; }
+}
+
+@keyframes bounce-shadow {
+  0% { transform: scaleX(1.2); opacity: 0.6; }
+  25% { transform: scaleX(0.8); opacity: 0.3; }
+  100% { transform: scaleX(1.2); opacity: 0.6; }
+}
+
+/* Application des animations */
+.basketball {
+  animation:
+    bounce 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    move 15s infinite linear;
+}
+
+.basketball-shadow {
+  animation:
+    bounce-shadow 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    move 15s infinite linear;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
   .basketball-court {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background: linear-gradient(to bottom, #1a4a3a 0%, #2F4A40 100%);
-    overflow: hidden;
-    pointer-events: none;
+    opacity: 0.3;
   }
 
-  /* Lignes du terrain (version simplifiée et élégante) */
-  .court-lines {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background:
-      /* Ligne centrale */
-      linear-gradient(to right,
-        transparent 49.5%,
-        rgba(255,255,255,0.8) 49.5%,
-        rgba(255,255,255,0.8) 50.5%,
-        transparent 50.5%),
-      /* Raquette (zone restrictive) */
-      repeating-linear-gradient(
-        to right,
-        transparent,
-        transparent 45%,
-        rgba(255,255,255,0.3) 45%,
-        rgba(255,255,255,0.3) 55%,
-        transparent 55%,
-        transparent 100%
-      ),
-      /* Ligne de fond */
-      repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent 45%,
-        rgba(255,255,255,0.5) 45%,
-        rgba(255,255,255,0.5) 55%,
-        transparent 55%,
-        transparent 100%
-      );
-    background-size:
-      100% 4px, /* Ligne centrale */
-      100% 20%, /* Raquette */
-      100% 100%; /* Ligne de fond */
-    opacity: 0.6;
-  }
-
-  /* Cercle central */
-  .center-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 80px;
-    height: 80px;
-    border: 2px solid rgba(255,255,255,0.7);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.5;
-  }
-
-  /* Ballon de basket (version optimisée) */
   .basketball {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #FF6B35 0%, #E03A3E 100%);
-    border-radius: 50%;
-    box-shadow:
-      inset 0 0 8px rgba(0,0,0,0.2),
-      0 0 15px rgba(255,107,53,0.4);
-    bottom: 120px;
-    left: 30%;
-    z-index: -1;
+    width: 30px;
+    height: 30px;
+    animation-duration: 3s;
   }
-
-  /* Détails du ballon */
-  .basketball::before,
-  .basketball::after {
-    content: "";
-    position: absolute;
-    background: rgba(0,0,0,0.2);
-    border-radius: 1px;
-  }
-
-  .basketball::before {
-    width: 2px;
-    height: 40px;
-    left: 50%;
-    top: 0;
-    transform: translateX(-1px);
-  }
-
-  .basketball::after {
-    width: 40px;
-    height: 2px;
-    top: 50%;
-    left: 0;
-    transform: translateY(-1px);
-  }
-
-  /* Ombre dynamique */
-  .basketball-shadow {
-    position: absolute;
-    width: 40px;
-    height: 6px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 50%;
-    bottom: 115px;
-    left: 30%;
-    transform: scaleX(1.2);
-    opacity: 0.6;
-    z-index: -1;
-  }
-
-  /* Animations */
-  @keyframes bounce {
-    0% {
-      transform: translateY(0) scale(1);
-      bottom: 120px;
-    }
-    25% {
-      transform: translateY(-120px) scale(0.95);
-    }
-    50% {
-      transform: translateY(0) scale(1.03);
-      bottom: 120px;
-    }
-    75% {
-      transform: translateY(-60px) scale(0.98);
-    }
-    100% {
-      transform: translateY(0) scale(1);
-      bottom: 120px;
-    }
-  }
-
-  @keyframes move {
-    0% { left: 30%; }
-    50% { left: 70%; }
-    100% { left: 30%; }
-  }
-
-  /* Application */
-  .basketball {
-    animation:
-      bounce 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      move 15s infinite linear;
-  }
-
-  .basketball-shadow {
-    animation:
-      bounce-shadow 4.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      move 15s infinite linear;
-  }
-
-  @keyframes bounce-shadow {
-    0% {
-      transform: scaleX(1.2);
-      opacity: 0.6;
-    }
-    25% {
-      transform: scaleX(0.8);
-      opacity: 0.3;
-    }
-    100% {
-      transform: scaleX(1.2);
-      opacity: 0.6;
-    }
-  }
-
-  /* Optimisation mobile */
-  @media (max-width: 768px) {
-    .basketball-court {
-      opacity: 0.3; /* Plus discret sur mobile */
-    }
-    .basketball {
-      width: 30px;
-      height: 30px;
-      animation-duration: 3s; /* Plus rapide */
-    }
-  }
+}
