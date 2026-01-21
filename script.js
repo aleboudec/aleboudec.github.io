@@ -1,118 +1,96 @@
-/**
- * 🏀 SAINT MARC BASKETBALL - BOUTIQUE EN LIGNE
- * --------------------------------------------
- * Gestion du panier, des commandes et des animations.
- * @author [Ton Nom]
- * @version 1.0.0
- */
+alert("🔥 JS EXECUTÉ 🔥");
+/*************************
+ * 🛒 DONNÉES PANIER
+ *************************/
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 /*************************
- * 🛒 DONNÉES DU PANIER
+ * 🧠 OUTILS
  *************************/
-const CART_KEY = "smbCart"; // Clé unique pour éviter les conflits avec d'autres sites
-let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-
-/*************************
- * 🔄 FONCTIONS CORE PANIER
- *************************/
-/**
- * Sauvegarde le panier dans localStorage.
- */
 function saveCart() {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-/**
- * Ajoute un produit au panier.
- * @param {string} name - Nom du produit
- * @param {string} size - Taille sélectionnée
- * @param {number} price - Prix unitaire
- */
+/*************************
+ * ➕ AJOUT AU PANIER
+ *************************/
 function addToCart(name, size, price) {
-  const existingItem = cart.find(item => item.name === name && item.size === size);
+  const existingItem = cart.find(
+    item => item.name === name && item.size === size
+  );
+
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
-    cart.push({ name, size, price, quantity: 1 });
+    cart.push({
+      name,
+      size,
+      price,
+      quantity: 1
+    });
   }
+
   saveCart();
-  updateCart();
+  renderCart();
 }
 
-/**
- * Supprime un article du panier.
- * @param {number} index - Index de l'article à supprimer
- */
+/*************************
+ * ❌ SUPPRESSION ARTICLE
+ *************************/
 function removeFromCart(index) {
   cart.splice(index, 1);
   saveCart();
-  updateCart();
-}
-
-/**
- * Vide entièrement le panier (avec confirmation).
- */
-function clearCart() {
-  if (confirm("Vider complètement le panier ?")) {
-    cart = [];
-    saveCart();
-    updateCart();
-  }
+  renderCart();
 }
 
 /*************************
- * 🎨 AFFICHAGE DU PANIER
+ * 🎨 AFFICHAGE PANIER
  *************************/
-/**
- * Met à jour l'affichage du panier (flottant + récapitulatif).
- */
-function updateCart() {
-  const cartList = document.getElementById("cart");
-  const cartSummary = document.getElementById("orderSummary");
+function renderCart() {
+  const cartEl = document.getElementById("cart");
   const totalDisplay = document.getElementById("totalDisplay");
-  const orderTotal = document.getElementById("orderTotal");
 
-  // --- Affichage du panier flottant ---
   if (cart.length === 0) {
-    cartList.innerHTML = `<p class="text-gray-500">Panier vide</p>`;
-  } else {
-    cartList.innerHTML = cart.map((item, index) => `
-      <div class="flex justify-between items-start py-2 border-b border-gray-100">
-        <div>
-          <p class="font-medium">${item.name}</p>
-          <p class="text-sm text-gray-500">${item.size} × ${item.quantity}</p>
-        </div>
-        <div class="text-right">
-          <p class="font-medium">${item.price * item.quantity}€</p>
-          <button onclick="removeFromCart(${index})" class="text-xs text-red-500 hover:text-red-700">×</button>
-        </div>
-      </div>
-    `).join('');
+    cartEl.innerHTML = `<p class="text-gray-500">Panier vide</p>`;
+    totalDisplay.textContent = "0€";
+    return;
   }
 
-  // --- Récapitulatif dans le formulaire ---
-  if (cartSummary) {
-    cartSummary.innerHTML = cart.map(item => `
-      <div class="flex justify-between py-1">
-        <span>${item.name} (${item.size}) × ${item.quantity}</span>
-        <span>${item.price * item.quantity}€</span>
-      </div>
-    `).join('');
-  }
+  let total = 0;
 
-  // --- Calcul du total ---
-  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  if (totalDisplay) totalDisplay.textContent = `${total}€`;
-  if (orderTotal) orderTotal.textContent = `${total}€`;
+  cartEl.innerHTML = cart
+    .map((item, index) => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+
+      return `
+        <div class="flex justify-between items-center py-2 border-b">
+          <div>
+            <p class="font-medium">${item.name}</p>
+            <p class="text-sm text-gray-500">
+              Taille ${item.size} × ${item.quantity}
+            </p>
+          </div>
+          <div class="text-right">
+            <p class="font-bold">${subtotal}€</p>
+            <button
+              onclick="removeFromCart(${index})"
+              class="text-xs text-red-600 hover:underline"
+            >
+              Supprimer
+            </button>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  totalDisplay.textContent = `${total}€`;
 }
 
 /*************************
- * ✉️ GESTION DES COMMANDES
+ * ✉️ TEXTE COMMANDE (EMAIL)
  *************************/
-/**
- * Génère le texte de la commande pour l'email.
- * @returns {string} Texte formaté pour l'email
- */
 function buildCommandeText() {
   let text = "🛒 NOUVELLE COMMANDE – SAINT MARC BASKET\n\n";
   let total = 0;
@@ -125,53 +103,52 @@ function buildCommandeText() {
 
   text += `\n💰 TOTAL : ${total}€`;
   text += `\n📦 Retrait : Au club`;
+
   return text;
 }
 
-/**
- * Valide le formulaire avant envoi.
- */
-function setupFormValidation() {
-  const form = document.getElementById("orderForm");
-  if (form) {
-    form.addEventListener("submit", function(e) {
-      if (cart.length === 0) {
-        e.preventDefault();
-        alert("Votre panier est vide ! Ajoutez des articles avant de commander.");
-        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-      } else {
-        document.getElementById("hiddenCommande").value = buildCommandeText();
-      }
-    });
-  }
+/*************************
+ * ✅ VIDER LE PANIER
+ *************************/
+function clearCart() {
+  console.log("🧹 clearCart appelée");
+  if (!confirm("Vider complètement le panier ?")) return;
+
+  cart = [];
+  saveCart();
+  renderCart();
+}
+
+const btn = document.getElementById("clearCartBtn");
+
+console.log("BTN =", btn);
+
+if (btn) {
+  btn.addEventListener("click", function () {
+    alert("🧨 CLIC DÉTECTÉ");
+    console.log("CLIC OK");
+  });
+} else {
+  console.log("❌ bouton introuvable");
 }
 
 /*************************
- * 🖱️ ÉCOUTEURS D'ÉVÉNEMENTS
+ * ✅ VALIDATION FORMULAIRE
  *************************/
-function setupEventListeners() {
-  // --- Bouton "Vider le panier" ---
-  const clearCartBtn = document.getElementById("clearCartBtn");
-  if (clearCartBtn) clearCartBtn.addEventListener("click", clearCart);
+document.getElementById("orderForm").addEventListener("submit", function (e) {
+  if (cart.length === 0) {
+    e.preventDefault();
+    alert("🛒 Ajoute au moins un produit avant de commander !");
+    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+    return;
+  }
 
-  // --- Animations au scroll ---
-  const fadeElements = document.querySelectorAll('.fade');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('animate-fade-in');
-    });
-  }, { threshold: 0.1 });
-  fadeElements.forEach(el => observer.observe(el));
-}
+  document.getElementById("hiddenCommande").value = buildCommandeText();
+});
+
+document.getElementById("clearCartBtn").addEventListener("click", clearCart);
 
 /*************************
  * 🚀 INITIALISATION
  *************************/
-function init() {
-  updateCart();          // Met à jour le panier au chargement
-  setupFormValidation(); // Configure la validation du formulaire
-  setupEventListeners(); // Active les écouteurs d'événements
-}
-
-// Lancement de l'application
-init();
+renderCart();
