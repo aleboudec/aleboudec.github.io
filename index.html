@@ -18,10 +18,11 @@
   <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="script.js"></script>
+  <script src="script.js"> </script>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="style.css" rel="stylesheet">
+  
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -60,8 +61,8 @@
       <div class="fade delay-2">
         <div class="bg-white/20 backdrop-blur p-6 sm:p-8 rounded-xl2 shadow-card text-white">
           <ul class="space-y-3 text-lg font-semibold">
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Tailles S → XXL disponibles</li>
-            <li class="flex items-center gap-3"><span class="text-highlight">✓</span> Habillez-vous au couleur de votre club de basket préféré</li>
+            <li class="flex items-center gap-3"><span class="text-highlight">⚠️</span> Les commandes seront expédiés en même temps.</li>
+            <li class="flex items-center gap-3"><span class="text-highlight">⚠️</span>Attention, toute commande enregistré doit être réglé pour ensuite être expédié.</li>
           </ul>
         </div>
       </div>
@@ -149,11 +150,11 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div>
           <h4 class="font-bold mb-4">Saint Marc Basketball</h4>
-          <p class="text-sm text-white/80">Foyer Laïque de Saint Marc<br>Brest, France</p>
+          <p class="text-sm text-white/80">Foyer Laïque de Saint Marc<br>12 Rue du Dr Floch, 29200 Brest, France</p>
         </div>
         <div>
           <h4 class="font-bold mb-4">Contact</h4>
-          <p class="text-sm"><a href="mailto:leboudec12@gmail.com" class="hover:text-highlight transition-colors">contact@saintmarcbasket.fr</a></p>
+          <p class="text-sm"><a href="mailto:leboudec12@gmail.com" class="hover:text-highlight transition-colors">leboudec12@gmail.com</a></p>
         </div>
         <div>
           <h4 class="font-bold mb-4">Suivez-nous</h4>
@@ -164,212 +165,13 @@
         </div>
       </div>
       <div class="border-t border-white/20 pt-6 text-center text-sm text-white/60">
-        © 2025 Foyer Laïque de Saint Marc Basketball. Tous droits réservés.
+        © 2026 Foyer Laïque de Saint Marc Basketball. Tous droits réservés.
       </div>
     </div>
   </footer>
 
   <!-- SCRIPT COMPLET AMÉLIORÉ -->
-  <script>
-    // === DONNÉES PRODUITS ===
-    const products = [
-      {
-        id: 1,
-        name: "Surmaillot",
-        price: 35.90,
-        img: "surmaillot.png",
-        sizes: ["S", "M", "L", "XL","XXL"],
-        new: true
-      },
-      {
-        id: 2,
-        name: "Jogging",
-        price: 19.90,
-        img: "jogging.png",
-        sizes: ["S", "M", "L", "XL","XXL"]
-      },
-      {
-        id: 3,
-        name: "Veste Zippée",
-        price: 22.90,
-        img: "veste.png",
-        sizes: ["S", "M", "L", "XL","XXL"]
-      },
-      {
-        id: 4,
-        name: "Sweat à Capuche",
-        price: 24.90,
-        img: "sweat.png",
-        sizes: ["S", "M", "L", "XL","XXL"]
-      }
-    ];
-
-    // === ÉLÉMENTS DOM ===
-    const productGrid = document.getElementById("productGrid");
-    const cartList = document.getElementById("cartList");
-    const floatingCart = document.getElementById("floatingCart");
-    const cartItemCount = document.getElementById("cartItemCount");
-    const totalDisplay = document.getElementById("total");
-    const orderSummary = document.getElementById("orderSummary");
-    const orderTotal = document.getElementById("orderTotal");
-
-    // === PANIER (avec localStorage) ===
-    let cart = JSON.parse(localStorage.getItem('smbCart')) || [];
-
-    // === AFFICHAGE DES PRODUITS ===
-    products.forEach(product => {
-      const card = document.createElement("div");
-      card.className = "product-card bg-white rounded-xl2 shadow-card p-4 fade delay-2 relative";
-
-      card.innerHTML = `
-        ${product.new ? '<span class="badge">Nouveau</span>' : ''}
-        <img src="${product.img}" loading="lazy" class="w-full h-48 sm:h-56 object-contain mb-4"
-             onerror="this.src='https://via.placeholder.com/300/2F4A40/FFFFFF?text=${encodeURIComponent(product.name)}'">
-        <h4 class="font-semibold text-lg mb-1">${product.name}</h4>
-        <p class="text-primary font-bold mb-3">${product.price}€</p>
-
-        <div class="flex items-center gap-2 mb-3">
-          <label class="text-sm">Quantité :</label>
-          <input type="number" id="quantity-${product.id}" min="1" value="1"
-                 class="w-16 border rounded-xl2 px-2 py-1 text-center">
-        </div>
-
-        <label class="text-sm block mb-2">Taille :</label>
-        <select id="size-${product.id}" class="border rounded-xl2 px-3 py-2 w-full mb-4">
-          ${product.sizes.map(s => `<option value="${s}">${s}</option>`).join('')}
-        </select>
-
-        <button onclick="addToCart(${product.id})"
-                class="w-full bg-accent text-white py-2 rounded-xl2 hover:bg-highlight transition-colors product-card-button">
-          Ajouter au panier
-        </button>
-      `;
-
-      productGrid.appendChild(card);
-    });
-
-    // === GESTION DU PANIER ===
-    function addToCart(id) {
-      const product = products.find(p => p.id === id);
-      const size = document.getElementById(`size-${id}`).value;
-      const quantity = parseInt(document.getElementById(`quantity-${id}`).value);
-
-      // Vérifier si le produit existe déjà dans le panier avec la même taille
-      const existingItem = cart.find(item => item.id === id && item.size === size);
-
-      if (existingItem) {
-        existingItem.quantity += quantity;
-      } else {
-        cart.push({ ...product, size, quantity });
-      }
-
-      updateCart();
-
-      // Animation du bouton
-      const button = event.target;
-      button.textContent = "Ajouté !";
-      button.classList.add("bg-highlight", "animate-pulse-once");
-      setTimeout(() => {
-        button.textContent = "Ajouter au panier";
-        button.classList.remove("bg-highlight");
-      }, 1500);
-
-      // Afficher le panier flottant
-      floatingCart.classList.remove("translate-y-2", "opacity-0", "invisible");
-      setTimeout(() => {
-        floatingCart.classList.add("translate-y-0", "opacity-100", "visible");
-      }, 10);
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-
-    function updateCart() {
-      // Sauvegarder dans localStorage
-      localStorage.setItem('smbCart', JSON.stringify(cart));
-
-      // Mettre à jour le compteur
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      cartItemCount.textContent = totalItems;
-      cartItemCount.classList.toggle('hidden', totalItems === 0);
-
-      // Mettre à jour la liste du panier
-      if (cart.length === 0) {
-        cartList.innerHTML = '<p class="text-gray-500 text-sm">Aucun article</p>';
-        orderSummary.innerHTML = '<p class="text-gray-500">Votre panier est vide</p>';
-        totalDisplay.textContent = "0€";
-        orderTotal.textContent = "0€";
-        floatingCart.classList.add("translate-y-2", "opacity-0");
-        setTimeout(() => {
-          floatingCart.classList.add("invisible");
-        }, 300);
-        return;
-      }
-
-      // Liste dans le panier flottant
-      cartList.innerHTML = cart.map((item, index) => `
-        <div class="flex justify-between items-start py-2 border-b border-gray-100 last:border-0">
-          <div>
-            <p class="font-medium">${item.name}</p>
-            <p class="text-sm text-gray-500">${item.size} × ${item.quantity}</p>
-          </div>
-          <div class="text-right">
-            <p class="font-medium">${item.price * item.quantity}€</p>
-            <button onclick="removeFromCart(${index})" class="text-xs text-red-500 hover:text-red-700">×</button>
-          </div>
-        </div>
-      `).join('');
-
-      // Récapitulatif dans le formulaire
-      orderSummary.innerHTML = cart.map(item => `
-        <div class="flex justify-between py-1">
-          <span>${item.name} (${item.size}) × ${item.quantity}</span>
-          <span>${item.price * item.quantity}€</span>
-        </div>
-      `).join('');
-
-      // Calcul du total
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      totalDisplay.textContent = `${total}€`;
-      orderTotal.textContent = `${total}€`;
-    }
-
-    // === VALIDATION DU FORMULAIRE ===
-    document.getElementById("orderForm").addEventListener("submit", function(e) {
-  if (cart.length === 0) {
-    e.preventDefault();
-    alert("Votre panier est vide ! Ajoutez des articles avant de commander.");
-    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-    return;
-  }
-
-  document.getElementById("hiddenCommande").value = buildCommandeText();
-});
-
-    // === ANIMATIONS AU SCROLL ===
-    const fadeElements = document.querySelectorAll('.fade');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    fadeElements.forEach(el => observer.observe(el));
-
-    // === INITIALISATION ===
-    updateCart();
-
-    // === GESTION DU PANIER FLOTTANT ===
-    document.addEventListener('click', function(e) {
-      if (!floatingCart.contains(e.target) && !e.target.closest('.product-card-button')) {
-        // Ne rien faire, le panier reste visible
-      }
-    });
-  </script>
+  <script src="shop.js"> </script>
 
 <!-- Terrain de basket + animation -->
 <div class="basketball-court">
