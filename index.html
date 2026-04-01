@@ -31,26 +31,27 @@
   <script>
 
   function sendOrder() {
-  
-  let commande = document.getElementById("hiddenCommande").value;
-  
+
+  // Récupérer le texte du récapitulatif de la commande
+  let orderSummary = document.getElementById("orderSummary").innerText;
+
+  // Mettre ce texte dans hiddenCommande
+  document.getElementById("hiddenCommande").value = orderSummary;
+
+  // Envoyer le mail
   emailjs.send("service_zhgcz5r","template_rkskote",{
-  lastName: document.getElementById("lastName").value,
-  firstName: document.getElementById("firstName").value,
-  email: document.getElementById("email").value,
-  commande: commande
+    lastName: document.getElementById("lastName").value,
+    firstName: document.getElementById("firstName").value,
+    email: document.getElementById("email").value,
+    commande: orderSummary
   })
   .then(function(response) {
-  
-  window.location.href = "merci.html";
-  
+    window.location.href = "merci.html";
   }, function(error) {
-  
-  alert("Erreur d'envoi");
-  
+    alert("Erreur d'envoi");
   });
-  
-  }
+
+}
   
   </script>
 
