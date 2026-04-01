@@ -20,6 +20,40 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js"> </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <script>
+  (function(){
+  emailjs.init("BS61BFpNMnJR9HhTh");
+  })();
+  </script>
+
+  <script>
+
+  function sendOrder() {
+  
+  let commande = document.getElementById("hiddenCommande").value;
+  
+  emailjs.send("service_zhgcz5r","template_rkskote",{
+  lastName: document.getElementById("lastName").value,
+  firstName: document.getElementById("firstName").value,
+  email: document.getElementById("email").value,
+  commande: commande
+  })
+  .then(function(response) {
+  
+  window.location.href = "merci.html";
+  
+  }, function(error) {
+  
+  alert("Erreur d'envoi");
+  
+  });
+  
+  }
+  
+  </script>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
   
@@ -132,7 +166,7 @@
         </div>
 
         <div class="text-center pt-4">
-          <button type="submit" class="w-full sm:w-auto bg-accent text-white px-8 py-3 rounded-xl2 shadow-soft hover:bg-highlight transition-colors font-semibold">
+          <button type="button" class="w-full sm:w-auto bg-accent text-white px-8 py-3 rounded-xl2 shadow-soft hover:bg-highlight transition-colors font-semibold" onclick="sendOrder()">
             Valider la commande
           </button>
         </div>
